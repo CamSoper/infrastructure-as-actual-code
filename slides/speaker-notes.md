@@ -24,9 +24,13 @@ Look at it. There's a loop. In curly braces. In a string. There's an if statemen
 
 We call this "infrastructure as code."
 
-## Slide 3: That's not code. That's config in a trench coat.
+## Slide 3: Congratulations. We reinvented Classic ASP.
 
-That's not code. That's config in a trench coat. Three YAML files stacked in a trench coat, trying to convince the compiler they're a programming language.
+Congratulations. We reinvented Classic ASP.
+
+Think about it. Logic in delimiters, jammed inside a markup language, with no compiler watching. Angle-bracket-percent became curly-curly. We spent twenty years getting web apps away from that, and then we went and did it to our infrastructure.
+
+[If you want to milk it:] Somewhere, a .asp file with an On Error Resume Next is feeling very seen.
 
 To be fair: Bicep and HCL are real languages, with real tooling, and they're a lot better than this. What none of them gives you is the thing I'll show you in demo 2: a compiler that knows every case you forgot.
 

@@ -8,7 +8,7 @@ Target: 25 minutes of content, 5 minutes of Q&A. Hard stop on content at 25:00.
 
 | Time | Slide(s) | What happens |
 |---|---|---|
-| 0:00 | 1 to 3 | Cold open: YAML in a trench coat |
+| 0:00 | 1 to 3 | Cold open: we reinvented Classic ASP |
 | 1:30 | 4 | Who's this guy (30 seconds, open source disclaimer) |
 | 2:00 | 5 to 6 | What "actual code" means; Pulumi in one slide |
 | 3:30 | 7 | **Demo 1: Hello, cloud** |
