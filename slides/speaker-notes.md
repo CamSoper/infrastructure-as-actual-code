@@ -2,7 +2,7 @@
 
 Infrastructure as (Actual) Code with C# 15 and .NET 11. Cam Soper, .NET Conf 2026 Community Days.
 
-## Slide 1: Infrastructure as (Actual) Code
+## Slide 1: Infrastructure as (Actual) Code with C# 15 and .NET 11
 
 [Host intro. Smile. Don't start talking about yourself yet; the cold open does the work.]
 
