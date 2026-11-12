@@ -16,7 +16,9 @@ Show of hands... well, it's a livestream, so: drop a 🙋 in chat if your infras
 
 [Beat. Read a couple of chat replies if they're there.]
 
-Look at this. There's a loop. In curly braces. In a string. There's an if statement. Also in curly braces, also in a string. What type is $env? Nobody knows. What happens if I misspell "prod"? Nothing. It falls through to the else, production quietly gets the dev SKU, and you never find out. Until the outage. On a Friday.
+This is real. It's a Helm chart template that stamps out Azure storage accounts through Azure Service Operator, and people ship exactly this to Kubernetes every day.
+
+Look at it. There's a loop. In curly braces. In a string. There's an if statement. Also in curly braces, also in a string. What type is .name? Nobody knows. It's a string, probably. What happens if I misspell "prod"? Nothing. It falls through to the else, production quietly gets the dev SKU, and you never find out. Until the outage. On a Friday.
 
 [Slowly.] Probably this Friday.
 
