@@ -1,0 +1,6 @@
+name: agent-vs-compiler
+description: Demo 3 -- an AI agent changes the infrastructure, and the compiler reviews its work
+runtime: dotnet
+config:
+  azure-native:location:
+    value: centralus

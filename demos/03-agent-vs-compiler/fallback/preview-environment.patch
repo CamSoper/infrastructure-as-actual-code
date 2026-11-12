@@ -1,0 +1,56 @@
+diff -ru a/Policy.cs b/Policy.cs
+--- a/Policy.cs	2026-11-11 19:56:58.538990029 +0000
++++ b/Policy.cs	2026-11-11 19:57:04.321135967 +0000
+@@ -12,6 +12,7 @@
+         Staging => SkuName.Standard_LRS,
+         Prod    => SkuName.Standard_ZRS,   // zone redundant: three datacenters
+         FridayAfternoon => SkuName.Standard_RAGZRS,   // maximum redundancy, maximum anxiety
++        Preview => SkuName.Standard_LRS,              // throwaway, so cheap
+     };
+ 
+     // Protected resources can't be deleted until someone deliberately unprotects them.
+@@ -21,6 +22,7 @@
+         Staging => false,
+         Prod    => true,
+         FridayAfternoon => true,                      // nobody touches anything
++        Preview => false,                             // previews get deleted; don't make that hard
+     };
+ 
+     // What the website says about where you are.
+@@ -30,6 +32,7 @@
+         Staging => new("🧪 Staging: almost real", "#28c2d1"),
+         Prod p  => new($"✅ Production: {p.OnCall} is on call, be nice", "#28c2d1"),
+         FridayAfternoon => throw new GoHomeException(),
++        Preview p => new($"🔍 Preview of pull request #{p.PullRequest}", "#b9aaee"),
+     };
+ 
+     public static Dictionary<string, string> Tags(Stage stage, string stackName)
+diff -ru a/Stages.cs b/Stages.cs
+--- a/Stages.cs	2026-11-11 19:56:58.538956576 +0000
++++ b/Stages.cs	2026-11-11 19:57:04.321044036 +0000
+@@ -5,14 +5,14 @@
+ public record Staging;
+ public record Prod(string OnCall);   // You can't build a Prod without naming who gets paged.
+ public record FridayAfternoon;      // Added in demo 2. Handled everywhere, because the compiler insisted.
+-// public record Preview(int PullRequest);   // DEMO 3: uncomment me (one per pull request, e.g. stack "pr-1013")
++public record Preview(int PullRequest);      // One per pull request, e.g. stack "pr-1013"
+ 
+ public union Stage(
+     Dev,
+     Staging,
+     Prod,
+     FridayAfternoon
+-    // , Preview                     // DEMO 3: ...and me
++    , Preview
+ );
+ 
+ public static class Stages
+@@ -24,6 +24,8 @@
+         "staging" => new Staging(),
+         "prod"    => new Prod(OnCall: config.Require("onCall")),
+         "friday"  => new FridayAfternoon(),
++        var name when name.StartsWith("pr-") && int.TryParse(name["pr-".Length..], out var pr)
++                  => new Preview(PullRequest: pr),
+         _ => throw new ArgumentException($"'{stackName}' isn't an environment we know how to build."),
+     };
+ }

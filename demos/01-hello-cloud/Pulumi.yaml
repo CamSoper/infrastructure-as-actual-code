@@ -1,0 +1,6 @@
+name: hello-cloud
+description: Demo 1 -- a static website on Azure, written in plain C#
+runtime: dotnet
+config:
+  azure-native:location:
+    value: centralus

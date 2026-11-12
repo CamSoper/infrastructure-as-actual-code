@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <!-- The one line that turns "the compiler noticed" into "the compiler said no".
+         CS8509 = a switch expression doesn't handle every case. -->
+    <WarningsAsErrors>$(WarningsAsErrors);CS8509</WarningsAsErrors>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Pulumi" Version="3.118.0" />
+    <PackageReference Include="Pulumi.AzureNative" Version="3.30.0" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,10 @@
+<Project>
+  <!-- Shared by every project in this repo. -->
+  <PropertyGroup>
+    <TargetFramework>net11.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <!-- Pulumi's SDK pulls in an older OpenTelemetry; not our fight today. -->
+    <NoWarn>$(NoWarn);NU1902</NoWarn>
+  </PropertyGroup>
+</Project>

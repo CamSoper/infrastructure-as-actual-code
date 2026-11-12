@@ -1,0 +1,10 @@
+bin/
+obj/
+*.user
+.vs/
+.idea/
+# Pulumi stack files can hold encrypted secrets and salts. Only commit the ones we ship on purpose.
+Pulumi.*.yaml
+!Pulumi.dev.yaml
+!Pulumi.prod.yaml
+TestResults/

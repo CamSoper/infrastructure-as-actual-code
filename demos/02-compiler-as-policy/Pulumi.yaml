@@ -1,0 +1,6 @@
+name: compiler-as-policy
+description: Demo 2 -- C# 15 union types turn deployment rules into compile errors
+runtime: dotnet
+config:
+  azure-native:location:
+    value: centralus
