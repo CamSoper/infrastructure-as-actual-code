@@ -28,6 +28,8 @@ And if I add a staging environment? Nothing tells me staging needs a decision ab
 
 We call this "infrastructure as code."
 
+[If chat says "just add a validation block" or "use a map": they're right, and say so. "Yep. Do that, and you get an error at plan time, for the one environment you planned. Hold that thought: in demo 2 the compiler checks every rule, for every environment, before anything runs."]
+
 ## Slide 3: That's not code. That's config with extra steps.
 
 That's not code. That's config with extra steps.
