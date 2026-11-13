@@ -64,7 +64,7 @@ Everything you need to type is already in the files, commented out. Use **Ctrl+K
 | 3 | `CompilerAsPolicy.csproj`: the `WarningsAsErrors` line. | "CS8509 is the 'your switch missed a case' warning. This one line makes it an error. That's the difference between a policy and a suggestion." |
 | 4 | Browser tab: the `dev` site's yellow banner. | Read it: "Dev: nothing here is real." |
 | 5 | "You know what environment we don't have? The one this talk is in." In `Stages.cs`, uncomment the `FridayAfternoon` record and the `, FridayAfternoon` line in the union. | |
-| 6 | `dotnet build` | Read one error aloud: "Policy.cs line 9: the switch doesn't handle FridayAfternoon." Then: "Three errors. One per rule. The compiler just did a code review of our entire deployment policy." Then the callback: "Remember the cold open? In Terraform this was a ternary on a string and a count of one-or-zero. Add an environment and nothing tells you. Here, it's three build errors." |
+| 6 | `dotnet build` | You'll see 6 error lines (each is printed twice); point at the "3 Error(s)" summary. Read one error aloud: "Policy.cs line 9: the switch doesn't handle FridayAfternoon." Then: "Three errors. One per rule. The compiler just did a code review of our entire deployment policy." Then the callback: "Remember the cold open? In Terraform this was a ternary on a string and a count of one-or-zero. Add an environment and nothing tells you. Here, it's three build errors." |
 | 7 | In `Policy.cs`, uncomment the three `FridayAfternoon =>` arms and `GoHomeException` at the bottom. In `Stages.cs`, uncomment the `"friday"` line. Read the comments out loud. | "Maximum redundancy, maximum anxiety." |
 | 8 | `dotnet build` | "Green." |
 | 9 | Clear the terminal (Ctrl+L). `pulumi preview --stack friday` | Scroll to the message and read it: "It's Friday afternoon. The deploy can wait. Close the laptop." Then, slowly: "Which is a joke. Probably." |
@@ -143,6 +143,8 @@ Then by hand:
 - [ ] Demo 3 window: sidebar closed (Ctrl+B), so `FridayRule.cs` isn't on screen.
 - [ ] Terminal history cleared. One terminal per demo folder, already `cd`'d. `PULUMI_CONFIG_PASSPHRASE` set in each, if you need it.
 - [ ] `git status` clean in every demo folder.
+- [ ] `git pull`, then reload the VS Code window (Ctrl+Shift+P, "Developer: Reload Window") so IntelliSense uses the .NET 11 SDK.
+- [ ] Every `pulumi preview`/`up` starts with ~10 lines of `dotnet build` output. Scroll past it to the diff.
 - [ ] `az account show` returns the subscription you expect. No secrets on screen.
 - [ ] Agent signed in and warm (run one throwaway prompt).
 - [ ] A backup crew name for demo 1, in case chat is slow.
