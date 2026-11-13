@@ -4,7 +4,7 @@
 .NET Conf 2026 Community Days, Friday, November 13, 2:30 to 3:00 PM PST (4:30 CT). StreamYard, 1920 x 1080.
 Check in with the host 15 minutes early. Be back 5 minutes before start.
 
-Target: 25 minutes of content, 5 minutes of Q&A. Hard stop on content at 25:00.
+Target: about 21 minutes of content, then Q&A. Hard stop on content at 25:00.
 
 | Time | Slide(s) | What happens |
 |---|---|---|
@@ -103,12 +103,11 @@ Run `./scripts/prep.sh` (bash, in WSL). It:
 2. Builds every project and runs the tests.
 3. Creates and deploys the `dev` stacks for demos 1 and 2 (so the live `pulumi up` only replaces one file).
 4. Creates the `friday` stack in demo 2.
-5. Creates the `pr-1013` stack in demo 3, deploys it once with the reference solution, then resets the folder with `git checkout -- .`. The live `pulumi up` then replaces one file instead of creating a storage account.
+5. Creates the `pr-1013` stack in demo 3. Demo 3 is cut from the live talk, so you can ignore this step.
 
 Then by hand:
 
 - [ ] **Thursday: one full dry run against real Azure.** Both demos, start to finish, with a timer. Nothing here has been deployed for real yet.
-- [ ] Rehearse the Friday payoff on Thursday: it won't fire. To see it, temporarily point `FridayRule.Clock` at a Friday, or just trust the tests (`Friday_afternoon_blocks_every_stack`).
 - [ ] Record a fallback video of each demo (StreamYard can share a second tab).
 - [ ] Push the repo public, and check the QR code on slide 14 opens it.
 
