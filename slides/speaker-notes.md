@@ -10,21 +10,33 @@ Thanks! Before I say who I am, I want to show you something.
 
 ## Slide 2: Infrastructure as code, they said
 
-COLD OPEN (0:00 to 1:30). Three clicks: ternary, count, dynamic block.
+COLD OPEN (0:00 to 1:30). Three slides, one new "if" per slide.
 
 Show of hands... well, it's a livestream, so: drop a 🙋 in chat if you've ever written "count equals something question-mark one colon zero."
 
 [Beat. Read a couple of chat replies. There will be replies.]
 
-This is real Terraform. A storage account and a delete lock. And a few things that should only happen in prod.
+This is real Terraform. One storage account for a website. A variable says which environment we're in, and the dollar-curly bits are string interpolation: site-dev, site-prod.
 
-[Click 1: the ternary.] Redundancy: a ternary on a string. Fine. Every single line is setting a value.
+[Click: the replication line.] Prod should be zone-redundant, everything else can be cheap. So: a ternary on a string. Fine. Totally reasonable.
 
-[Click 2: count.] The delete lock should only exist in prod. HCL doesn't have an if statement, so you ask for one-or-zero of it. That's an if statement.
+## Slide 3: Infrastructure as code, they said
 
-[Click 3: the dynamic block.] Versioning should only be on in prod. That's a nested block, so count doesn't work. Instead you loop over a list that has one thing in it, or nothing. [Beat.] That's ALSO an if statement.
+[The storage account is folded up. Same thing as before.]
 
-Now look at what's NOT here. No if. No switch. No loop that does anything except build a list. Every decision is squeezed into one expression that produces one value. That's configuration.
+[Click 1: the lock.] Now prod needs a delete lock, so nobody fat-fingers the production site away.
+
+[Click 2: count.] But only in prod. HCL doesn't have an if statement, so you ask for one-or-zero of it. [Beat.] That's an if statement.
+
+And now that lock is a list. Anything that refers to it says keep-square-bracket-zero, or wraps it in try(). Forever.
+
+## Slide 4: Infrastructure as code, they said
+
+[Click 1: the block.] Last one. Prod needs blob versioning, so you can undo a bad deploy of the site. That's a nested block inside the storage account, so count doesn't work.
+
+[Click 2: for_each.] Instead you loop over a list that has one thing in it, or nothing. [Beat.] That's ALSO an if statement.
+
+Now look at what's NOT on any of these slides. No if. No switch. No loop that does anything except build a list. Every decision is squeezed into one expression that produces one value. That's configuration.
 
 And what type is var.env? A string. Misspell "prod" in your tfvars, and plan is green: production quietly gets the dev SKU, no lock, no versioning. You find out during the outage. On a Friday.
 
@@ -36,7 +48,7 @@ We call this "infrastructure as code."
 
 [If chat says "just add a validation block" or "use a map": they're right, and say so. "Yep. Do that, and you get an error at plan time, for the one environment you planned. Hold that thought: in demo 2 the compiler checks every rule, for every environment, before anything runs."]
 
-## Slide 3: That's not code. That's config with extra steps.
+## Slide 5: That's not code. That's config with extra steps.
 
 That's not code. That's config with extra steps.
 
@@ -48,7 +60,7 @@ To be fair: Terraform is a great tool, and HCL is a real language with real tool
 
 Today: infrastructure as actual code. In C#. With a compiler that says no.
 
-## Slide 4: Cam Soper
+## Slide 6: Cam Soper
 
 WHO'S THIS GUY (1:30 to 2:00, keep it to 30 seconds)
 
@@ -60,7 +72,7 @@ Quick disclaimer, since I work there: everything you'll see today is open source
 
 And this isn't a conference toy: my home lab and my domains are deployed with exactly this.
 
-## Slide 5: What “actual code” gets you
+## Slide 7: What “actual code” gets you
 
 WHAT "(ACTUAL)" MEANS (2:00 to 2:45)
 
@@ -72,7 +84,7 @@ A compiler. Types and IntelliSense: you can F12 into a storage account. Tests: y
 
 Every demo today ticks at least one of these.
 
-## Slide 6: Pulumi, in one slide
+## Slide 8: Pulumi, in one slide
 
 PULUMI IN ONE SLIDE (2:45 to 3:30). Three clicks, same order as the Terraform slide.
 
@@ -92,7 +104,7 @@ Open source, and no account needed: "pulumi login --local" keeps your state in a
 
 Enough slides. Let's deploy something.
 
-## Slide 7: Demo: Hello, cloud
+## Slide 9: Demo: Hello, cloud
 
 DEMO 1: HELLO, CLOUD (3:30 to 8:30). Full cue card in docs/run-of-show.md.
 
@@ -112,7 +124,7 @@ Folder: demos/01-hello-cloud. Stack "dev" is ALREADY deployed.
 Line to land: "That's a loop, a string, and a list. In a real language. With a compiler watching."
 Fallback: browser tab of the already-deployed site + git diff of the change.
 
-## Slide 8: C# 15: union types
+## Slide 10: C# 15: union types
 
 UNIONS IN ONE SLIDE (8:30 to 9:30). Three clicks: one per bullet.
 
@@ -126,7 +138,7 @@ And warning CS8509, "this switch doesn't handle every case," is only a warning b
 
 (If someone in chat asks about inheritance: C# 15 also adds "closed" class hierarchies that get the same exhaustiveness checks.)
 
-## Slide 9: Demo: The compiler is your policy engine
+## Slide 11: Demo: The compiler is your policy engine
 
 DEMO 2: THE COMPILER IS YOUR POLICY ENGINE (9:30 to 14:30). Full cue card in docs/run-of-show.md.
 
@@ -147,7 +159,7 @@ Folder: demos/02-compiler-as-policy. Stack "dev" ALREADY deployed; stack "friday
 Line to land: "The compiler didn't write the rule. It made me decide. Every single place."
 Fallback: it's all compile time. If Pulumi is sad, skip step 9 and show the GoHomeException line.
 
-## Slide 10: A rule for my agents. In bold.
+## Slide 12: A rule for my agents. In bold.
 
 THE REAL STORY (14:30 to 16:00). Cut this slide first if you're long. Three clicks: source, quote, confession.
 
@@ -159,7 +171,7 @@ The union version: every service gets exactly one auth posture. hades is SelfOAu
 
 [Optional: flash the real CLAUDE.md. Crop out the account and zone IDs at the top first.]
 
-## Slide 11: A rule in an agent's instructions is a suggestion. A rule in the type system is enforced.
+## Slide 13: A rule in an agent's instructions is a suggestion. A rule in the type system is enforced.
 
 THE THESIS (16:00 to 16:30). Pause on this one. Let it sit.
 
@@ -169,7 +181,7 @@ I put agents into production for a living. That's exactly why I trust them as fa
 
 So let's test that. Let's hand the keyboard to a robot.
 
-## Slide 12: Demo: Agent vs. compiler
+## Slide 14: Demo: Agent vs. compiler
 
 DEMO 3: AGENT VS. COMPILER (16:30 to 23:30). The finale. Full cue card in docs/run-of-show.md.
 
@@ -198,7 +210,7 @@ Fallback (agent slow, wrong, or offline):
 Then steps 5 to 8. If step 7 doesn't throw: "Huh. The rule says Friday afternoon, Pacific. Somebody check my clock." Say yes, skip step 8, open the URL, read the banner.
 Hard stop at 23:30.
 
-## Slide 13: Take it home
+## Slide 15: Take it home
 
 TAKE IT HOME (23:30 to 24:30)
 
@@ -210,7 +222,7 @@ And as a bonus: the whole thing in a single C# file. dotnet run deploy.cs. One g
 
 [Drop the repo link in chat now.]
 
-## Slide 14: Thank you
+## Slide 16: Thank you
 
 Q&A (24:30 to 30:00)
 

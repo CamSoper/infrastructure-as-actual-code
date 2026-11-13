@@ -8,21 +8,21 @@ Target: 25 minutes of content, 5 minutes of Q&A. Hard stop on content at 25:00.
 
 | Time | Slide(s) | What happens |
 |---|---|---|
-| 0:00 | 1 to 3 | Cold open: Terraform's `count = prod ? 1 : 0`, then "config with extra steps" |
-| 1:30 | 4 | Who's this guy (30 seconds, open source disclaimer) |
-| 2:00 | 5 to 6 | What "actual code" means; Pulumi in one slide |
-| 3:30 | 7 | **Demo 1: Hello, cloud** |
-| 8:30 | 8 | C# 15 unions in one slide |
-| 9:30 | 9 | **Demo 2: The compiler is your policy engine** |
-| 14:30 | 10 to 11 | The hades story; the thesis |
-| 16:30 | 12 | **Demo 3: Agent vs. compiler vs. the calendar** (the finale) |
-| 23:30 | 13 | Take it home: repo, tests, single file |
-| 24:30 | 14 | Thanks, Q&A |
+| 0:00 | 1 to 5 | Cold open: Terraform, one "if" per slide (ternary, `count = prod ? 1 : 0`, `dynamic`), then "config with extra steps" |
+| 1:30 | 6 | Who's this guy (30 seconds, open source disclaimer) |
+| 2:00 | 7 to 8 | What "actual code" means; Pulumi in one slide |
+| 3:30 | 9 | **Demo 1: Hello, cloud** |
+| 8:30 | 10 | C# 15 unions in one slide |
+| 9:30 | 11 | **Demo 2: The compiler is your policy engine** |
+| 14:30 | 12 to 13 | The hades story; the thesis |
+| 16:30 | 14 | **Demo 3: Agent vs. compiler vs. the calendar** (the finale) |
+| 23:30 | 15 | Take it home: repo, tests, single file |
+| 24:30 | 16 | Thanks, Q&A |
 
 If you're running long, cut in this order:
 
 1. Demo 1, step 7 (the chat crew member). Add a name yourself. Chat lags 10 to 30 seconds, so if nobody's answered by the time you finish saying it, use "Rubber duck."
-2. Slide 10 (the hades story). Go straight to slide 11.
+2. Slide 12 (the hades story). Go straight to slide 13.
 3. Demo 2, step 9 (`pulumi preview --stack friday`). Point at `GoHomeException` instead. Demo 3 delivers that joke for real anyway.
 
 **Never cut demo 3, steps 7 and 8.** They're the payoff.
@@ -106,7 +106,7 @@ That resets the uncomment from step 2 and applies the reference solution (swap i
 
 **If `pulumi up` doesn't throw in step 7** (clock or time zone surprise): say "Huh. The rule says Friday afternoon, Pacific. Somebody check my clock." Select **yes** at that prompt, skip step 8, and open the URL. The footer only appears on a Friday afternoon, so read the banner instead.
 
-**Hard stop at 23:30.** If `pulumi up` is still going, move to slide 13 and come back to the URL at the end.
+**Hard stop at 23:30.** If `pulumi up` is still going, move to slide 15 and come back to the URL at the end.
 
 **After the talk:** `git checkout -- .` and delete any new files. `cleanup.sh` handles the stack.
 
@@ -133,7 +133,7 @@ Then by hand:
 - [ ] Agent permissions: allow `dotnet build` without asking, so you don't approve prompts on stream. **Deny** `pulumi` outright. An agent that runs `pulumi preview` on Friday afternoon spoils step 7, and one that sets `blame` to get past it kills the joke for good.
 - [ ] Rehearse the Friday payoff on Thursday: it won't fire. To see it, temporarily point `FridayRule.Clock` at a Friday, or just trust the tests (`Friday_afternoon_blocks_every_stack`).
 - [ ] Record a fallback video of each demo (StreamYard can share a second tab).
-- [ ] Push the repo public, and check the QR code on slide 13 opens it.
+- [ ] Push the repo public, and check the QR code on slide 15 opens it.
 
 ## Day of
 
