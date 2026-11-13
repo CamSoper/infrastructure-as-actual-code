@@ -74,15 +74,21 @@ Every demo today ticks at least one of these.
 
 ## Slide 6: Pulumi, in one slide
 
-PULUMI IN ONE SLIDE (2:45 to 3:30). Three clicks: one per bullet.
+PULUMI IN ONE SLIDE (2:45 to 3:30). Three clicks, same order as the Terraform slide.
 
-Here's the whole mental model. This is a normal C# program. "new StorageAccount" doesn't create a storage account right then; it declares that you want one.
+Remember that Terraform? Here's the same thing in C#, with Pulumi.
 
-When you run "pulumi up," Pulumi runs your program, collects everything you declared, compares it to the state it saved from your last deployment, shows you the diff, and asks before it changes anything. If you've used Terraform, the preview is "terraform plan."
+The storage account is just "new StorageAccount." It doesn't create anything right then; it declares that you want one. When you run "pulumi up," Pulumi runs your program, diffs what you declared against your last deployment, shows you the plan, and asks before it changes anything. If you've used Terraform, the preview is "terraform plan."
 
-And notice "group.Name": that's a real reference between resources. Pulumi figures out the order from your code. No dependsOn.
+[Click 1.] The SKU: a ternary. Same as before. C# has those too.
 
-The CLI does need somewhere to keep state, but that doesn't have to be Pulumi's service: "pulumi login --local" keeps it in a folder on your machine, or point it at an Azure blob container.
+[Click 2.] The lock only exists in prod. So... it's an if statement. An actual if statement. Not one-or-zero of something.
+
+[Click 3.] Versioning only in prod? It goes in the same if. Not a loop over a list of one thing. Just code.
+
+[Beat.] Yes, it's still a string comparison on "prod." Hold that thought; that's what C# 15 fixes in a few minutes.
+
+Open source, and no account needed: "pulumi login --local" keeps your state in a folder on your machine, or point it at an Azure blob container.
 
 Enough slides. Let's deploy something.
 
