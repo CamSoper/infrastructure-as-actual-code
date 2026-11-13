@@ -153,14 +153,24 @@ Each case is its own type. Dev and Staging are records with nothing inside: they
 DEMO 2: THE COMPILER IS YOUR POLICY ENGINE (9:30 to 14:30)
 Folder: demos/02-compiler-as-policy. "dev" is deployed. "friday" is initialized, never deployed.
 
-[Open Stages.cs. Highlight the three records.]
+[Open Program.cs.]
+"Same website as demo 1, split into files. Program.cs is one line: hand Pulumi the Build method."
+
+[F12 into Site.Build. Highlight line 12, StackName.]
+"First thing it asks: which stack am I deploying?"
+"A stack is one deployed copy of this program. Same code, its own config, its own state. dev, prod, and in a minute, friday. Pulumi hands me the stack's name, and that's a string."
+
+[Highlight line 14, Stages.FromStack. Scroll past the resources; don't dwell.]
+"So the first thing we do is turn that string into a Stage: our own type for what kind of environment this stack is. Everything below asks the Stage, never the string." 
+
+[F12 into FromStack. Stages.cs.]
+"Here's the one place a stack name turns into a type." (If chat spots its "_ =>": strings are open-ended. The union isn't.)
+
+[Scroll up. Highlight the three records.]
 "Every environment is a type. Dev and Staging carry nothing; being Dev is the whole message. Prod needs an OnCall name. You can't make a Prod without naming who gets paged."
 
 [Highlight the union.]
 "And Stage is exactly one of those three. A closed list."
-
-[Hover FromStack.]
-"This is the one place a stack name, a string, turns into a type." (If chat spots its "_ =>": strings are open-ended. The union isn't.)
 
 [Open Policy.cs. Scroll the three switches.]
 "Our deployment rules. Which SKU, whether it's delete-protected, what the banner says. Each one's a switch over Stage. Notice what's missing: no underscore default arm. A discard arm is you telling the compiler to stop helping."
