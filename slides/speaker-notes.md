@@ -76,11 +76,17 @@ And this isn't a conference toy: my home lab and my domains are deployed with ex
 
 WHAT "(ACTUAL)" MEANS (2:00 to 2:45)
 
-[Four clicks: each card fades in as you name it.]
+Four clicks: each card fades in as you name it.
 
-When I say "actual code," I mean four things your app code already gets and your YAML doesn't.
+When I say "actual code," I mean four things your app code already gets and your config files don't.
 
-A compiler. Types and IntelliSense: you can F12 into a storage account. Tests: you can unit-test infrastructure without touching a cloud. And packages: infrastructure you can share on NuGet.
+[Click 1: A compiler.] A compiler. It reads every line before anything deploys.
+
+[Click 2: Types and IntelliSense.] Types and IntelliSense: every property and every allowed value, and you can F12 into a storage account.
+
+[Click 3: Tests.] Tests: you can unit-test infrastructure without touching a cloud.
+
+[Click 4: Packages.] And packages: infrastructure you can share on NuGet.
 
 Every demo today ticks at least one of these.
 
@@ -127,15 +133,15 @@ Fallback: browser tab of the already-deployed site + git diff of the change.
 
 ## Slide 10: C# 15: union types
 
-UNIONS IN ONE SLIDE (8:30 to 9:30). Three clicks: one per bullet.
+UNIONS IN ONE SLIDE (8:30 to 9:30). Three clicks, one per bullet.
 
-New in C# 15: union types. A Stage is a Dev, or a Staging, or a Prod. Exactly one. Nothing else.
+[Click 1: "Exactly one of a fixed set."] New in C# 15: union types. A Stage is a Dev, or a Staging, or a Prod. Exactly one. Nothing else.
 
-Two details I love. First: Prod carries an OnCall name. You literally cannot construct production without naming who gets paged. Invalid states, unrepresentable.
+Each case is its own type. Dev and Staging are records with nothing inside: they don't carry any data, because being Dev is the whole message. Prod carries an OnCall name. You literally cannot construct production without naming who gets paged. Invalid states, unrepresentable.
 
-Second: that switch has no default arm. It doesn't need one, because the compiler knows every possible Stage. Which means if I add a fourth one...
+[Click 2: "Miss a case: compiler error."] The switch handles every case. Leave one out and you get CS8509: "this switch doesn't handle every case." It's only a warning by default. One line in the csproj makes it an error. That's the whole policy engine.
 
-And warning CS8509, "this switch doesn't handle every case," is only a warning by default. One line in the csproj makes it an error. That's the whole policy engine.
+[Click 3: "No default arm needed."] And look what's missing: no underscore default arm. It doesn't need one, because the compiler knows every possible Stage. Which means if I add a fourth one...
 
 (If someone in chat asks about inheritance: C# 15 also adds "closed" class hierarchies that get the same exhaustiveness checks.)
 
@@ -164,9 +170,11 @@ Fallback: it's all compile time. If Pulumi is sad, skip step 9 and show the GoHo
 
 THE REAL STORY (14:30 to 16:00). Cut this slide first if you're long. Three clicks: source, quote, confession.
 
-This is a real line from the instructions file in my own infrastructure repo, the one that runs my domains and home-lab services. Cloudflare Access is a login screen that sits in front of a website. My server called hades already does its own OAuth sign-in. Put Access in front of it and you log in twice.
+[Click 1: "From my own CLAUDE.md."] This is a real line from the instructions file in my own infrastructure repo, the one that runs my domains and home-lab services.
 
-Confession: I didn't write that rule. Claude did. I didn't read it, and I checked it in. [Click: "Written by Claude. Checked in by me. Unread."] So now it's an AI writing rules for other AIs, in bold, with "NOT" in capitals, and the only enforcement mechanism is vibes. Because the types I had couldn't say it.
+[Click 2: the quote. Read it out loud.] Cloudflare Access is a login screen that sits in front of a website. My server called hades already does its own OAuth sign-in. Put Access in front of it and you log in twice.
+
+Confession: I didn't write that rule. Claude did. [Click 3: "Written by Claude. Checked in by me. Unread."] I didn't read it, and I checked it in. So now it's an AI writing rules for other AIs, in bold, with "NOT" in capitals, and the only enforcement mechanism is vibes. Because the types I had couldn't say it.
 
 The union version: every service gets exactly one auth posture. hades is SelfOAuth, full stop. "Access and its own OAuth" isn't a rule you can forget. It's a sentence you can't write. And if I ever add a fourth posture, the compiler finds every place that has to care.
 
