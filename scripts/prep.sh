@@ -36,9 +36,9 @@ step 'Demo 1: dev stack'
 ensure_stack demos/01-hello-cloud dev
 deploy demos/01-hello-cloud dev
 
-step 'Demo 2: dev stack (deployed) and friday stack (not deployed)'
+step 'Demo 2: dev stack (deployed) and prod stack (created, never deployed)'
 ensure_stack demos/02-compiler-as-policy dev
 deploy demos/02-compiler-as-policy dev
-ensure_stack demos/02-compiler-as-policy friday
+ensure_stack demos/02-compiler-as-policy prod
 
 printf '\n\033[32mReady. Open the URLs above in browser tabs.\033[0m\n'

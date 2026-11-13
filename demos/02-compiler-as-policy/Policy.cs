@@ -11,7 +11,7 @@ public static class Policy
         Dev     => SkuName.Standard_LRS,   // locally redundant: one datacenter
         Staging => SkuName.Standard_LRS,
         Prod    => SkuName.Standard_ZRS,   // zone redundant: three datacenters
-        // FridayAfternoon => SkuName.Standard_RAGZRS,   // maximum redundancy, maximum anxiety
+        // Preview => SkuName.Standard_LRS,   // throwaway, so cheap
     };
 
     // Protected resources can't be deleted until someone deliberately unprotects them.
@@ -20,7 +20,7 @@ public static class Policy
         Dev     => false,
         Staging => false,
         Prod    => true,
-        // FridayAfternoon => true,                      // nobody touches anything
+        // Preview => false,                  // previews get deleted; don't make that hard
     };
 
     // What the website says about where you are.
@@ -29,7 +29,7 @@ public static class Policy
         Dev     => new("🚧 Dev: nothing here is real", "#f7b548"),
         Staging => new("🧪 Staging: almost real", "#28c2d1"),
         Prod p  => new($"✅ Production: {p.OnCall} is on call, be nice", "#28c2d1"),
-        // FridayAfternoon => throw new GoHomeException(),
+        // Preview p => new($"🔍 Preview of pull request #{p.PullRequest}", "#b9aaee"),
     };
 
     public static Dictionary<string, string> Tags(Stage stage, string stackName)
@@ -46,8 +46,22 @@ public static class Policy
         }
         return tags;
     }
+
+    // Everybody knows the rule. Now it's code.
+    public static void CheckDeployWindow(Stage stage)
+    {
+        if (stage is Prod && IsFridayAfternoon())
+        {
+            throw new GoHomeException();
+        }
+    }
+
+    // .NET Conf runs on Pacific time, so that's the clock that matters.
+    static bool IsFridayAfternoon() =>
+        TimeZoneInfo.ConvertTime(DateTimeOffset.UtcNow, TimeZoneInfo.FindSystemTimeZoneById("America/Los_Angeles"))
+            is { DayOfWeek: DayOfWeek.Friday, Hour: >= 12 };
 }
 
 public record Banner(string Text, string Color);
 
-// class GoHomeException() : Exception("It's Friday afternoon. The deploy can wait. Close the laptop.");
+class GoHomeException() : Exception("No prod deploys on Friday afternoon. The deploy can wait. Close the laptop.");

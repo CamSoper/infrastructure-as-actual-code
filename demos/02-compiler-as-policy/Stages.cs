@@ -4,13 +4,13 @@
 public record Dev;
 public record Staging;
 public record Prod(string OnCall);   // You can't build a Prod without naming who gets paged.
-// public record FridayAfternoon;
+// public record Preview(int PullRequest);   // One per pull request, e.g. stack "pr-1013"
 
 public union Stage(
     Dev,
     Staging,
     Prod
-    // , FridayAfternoon
+    // , Preview
 );
 
 public static class Stages
@@ -21,7 +21,7 @@ public static class Stages
         "dev"     => new Dev(),
         "staging" => new Staging(),
         "prod"    => new Prod(OnCall: config.Require("onCall")),
-        // "friday"  => new FridayAfternoon(),
+        // var name when name.StartsWith("pr-") && int.TryParse(name[3..], out var pr) => new Preview(pr),
         _ => throw new ArgumentException($"'{stackName}' isn't an environment we know how to build."),
     };
 }
