@@ -137,13 +137,13 @@ Folder: demos/02-compiler-as-policy. Stack "dev" ALREADY deployed; stack "friday
 Line to land: "The compiler didn't write the rule. It made me decide. Every single place."
 Fallback: it's all compile time. If Pulumi is sad, skip step 9 and show the GoHomeException line.
 
-## Slide 10: I wrote a rule for my agents. In bold.
+## Slide 10: A rule for my agents. In bold.
 
-THE REAL STORY (14:30 to 16:00). Cut this slide first if you're long.
+THE REAL STORY (14:30 to 16:00). Cut this slide first if you're long. Three clicks: source, quote, confession.
 
 This is a real line from the instructions file in my own infrastructure repo, the one that runs my domains and home-lab services. Cloudflare Access is a login screen that sits in front of a website. My server called hades already does its own OAuth sign-in. Put Access in front of it and you log in twice.
 
-So I wrote it down for my AI agents. In bold. With "NOT" in capitals. Because the types I had couldn't say it.
+Confession: I didn't write that rule. Claude did. I didn't read it, and I checked it in. [Click: "Written by Claude. Checked in by me. Unread."] So now it's an AI writing rules for other AIs, in bold, with "NOT" in capitals, and the only enforcement mechanism is vibes. Because the types I had couldn't say it.
 
 The union version: every service gets exactly one auth posture. hades is SelfOAuth, full stop. "Access and its own OAuth" isn't a rule you can forget. It's a sentence you can't write. And if I ever add a fourth posture, the compiler finds every place that has to care.
 
