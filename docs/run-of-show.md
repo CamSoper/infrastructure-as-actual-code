@@ -8,7 +8,7 @@ Target: 25 minutes of content, 5 minutes of Q&A. Hard stop on content at 25:00.
 
 | Time | Slide(s) | What happens |
 |---|---|---|
-| 0:00 | 1 to 3 | Cold open: config with extra steps (and Classic ASP) |
+| 0:00 | 1 to 3 | Cold open: Terraform's `count = prod ? 1 : 0`, then "config with extra steps" |
 | 1:30 | 4 | Who's this guy (30 seconds, open source disclaimer) |
 | 2:00 | 5 to 6 | What "actual code" means; Pulumi in one slide |
 | 3:30 | 7 | **Demo 1: Hello, cloud** |
@@ -64,7 +64,7 @@ Everything you need to type is already in the files, commented out. Use **Ctrl+K
 | 3 | `CompilerAsPolicy.csproj`: the `WarningsAsErrors` line. | "CS8509 is the 'your switch missed a case' warning. This one line makes it an error. That's the difference between a policy and a suggestion." |
 | 4 | Browser tab: the `dev` site's yellow banner. | Read it: "Dev: nothing here is real." |
 | 5 | "You know what environment we don't have? The one this talk is in." In `Stages.cs`, uncomment the `FridayAfternoon` record and the `, FridayAfternoon` line in the union. | |
-| 6 | `dotnet build` | Read one error aloud: "Policy.cs line 9: the switch doesn't handle FridayAfternoon." Then: "Three errors. One per rule. The compiler just did a code review of our entire deployment policy." Then: "If you're a Terraform shop, your version of this rule is a ternary on a string: `var.env == "prod" ? "ZRS" : "LRS"`. Add an environment and nothing tells you. Misspell prod and you get LRS, quietly. Here, it's a build error." |
+| 6 | `dotnet build` | Read one error aloud: "Policy.cs line 9: the switch doesn't handle FridayAfternoon." Then: "Three errors. One per rule. The compiler just did a code review of our entire deployment policy." Then the callback: "Remember the cold open? In Terraform this was a ternary on a string and a count of one-or-zero. Add an environment and nothing tells you. Here, it's three build errors." |
 | 7 | In `Policy.cs`, uncomment the three `FridayAfternoon =>` arms and `GoHomeException` at the bottom. In `Stages.cs`, uncomment the `"friday"` line. Read the comments out loud. | "Maximum redundancy, maximum anxiety." |
 | 8 | `dotnet build` | "Green." |
 | 9 | Clear the terminal (Ctrl+L). `pulumi preview --stack friday` | Scroll to the message and read it: "It's Friday afternoon. The deploy can wait. Close the laptop." Then, slowly: "Which is a joke. Probably." |

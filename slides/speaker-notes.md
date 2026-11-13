@@ -12,15 +12,19 @@ Thanks! Before I say who I am, I want to show you something.
 
 COLD OPEN (0:00 to 1:30)
 
-Show of hands... well, it's a livestream, so: drop a 🙋 in chat if your infrastructure as code has a templating language in it.
+Show of hands... well, it's a livestream, so: drop a 🙋 in chat if you've ever written "count equals something question-mark one colon zero."
 
-[Beat. Read a couple of chat replies if they're there.]
+[Beat. Read a couple of chat replies. There will be replies.]
 
-This is real. It's a Helm chart template that stamps out Azure storage accounts through Azure Service Operator, and people ship exactly this to Kubernetes every day.
+This is real Terraform. A storage account, and a delete lock that only exists in prod.
 
-Look at it. There's a loop. In curly braces. In a string. There's an if statement. Also in curly braces, also in a string. What type is .name? Nobody knows. It's a string, probably. What happens if I misspell "prod"? Nothing. It falls through to the else, production quietly gets the dev SKU, and you never find out. Until the outage. On a Friday.
+Look at that count line. That's how you write an if statement in Terraform: you ask for one-or-zero of something. And the redundancy is a ternary on a string.
+
+What type is var.env? A string. What happens if I misspell "prod" in my tfvars? Nothing. Plan is green. Production quietly gets the dev SKU and no delete lock, and you never find out. Until the outage. On a Friday.
 
 [Slowly.] Probably this Friday.
+
+And if I add a staging environment? Nothing tells me staging needs a decision about redundancy or locks. It just falls through to "not prod."
 
 We call this "infrastructure as code."
 
@@ -28,7 +32,9 @@ We call this "infrastructure as code."
 
 That's not code. That's config with extra steps.
 
-[Beat. Then, almost to yourself:] Honestly, we reinvented Classic ASP. Logic in delimiters, jammed inside a markup language, no compiler watching. Angle-bracket-percent became curly-curly. We spent twenty years getting web apps away from that, and then we did it to our infrastructure.
+To be fair: Terraform is a great tool, and HCL is a real language with real tooling. I'm not here to dunk on it. But environment logic as string comparisons and one-or-zero counts is configuration that learned a few tricks. It's not code with a compiler that knows every case.
+
+[Optional aside, if chat's having fun:] HCL even has template directives: percent-curly-if. Classic ASP called. It wants its delimiters back.
 
 Today: infrastructure as actual code. In C#. With a compiler that says no.
 
@@ -114,7 +120,7 @@ Folder: demos/02-compiler-as-policy. Stack "dev" ALREADY deployed; stack "friday
 4. Dev site (browser tab). Read the banner: "Dev: nothing here is real."
 5. "You know what environment we don't have? The one this talk is in." Uncomment FridayAfternoon in Stages.cs (2 lines).
 6. dotnet build: 3 errors. Read one out loud: "Policy.cs line 9: doesn't handle FridayAfternoon." "One per rule. The compiler just reviewed our entire deployment policy."
-   Then, for the Terraform folks: "Your version of this rule is a ternary on a string: var.env == "prod" ? "ZRS" : "LRS". Add an environment and nothing tells you. Misspell prod and you get LRS, quietly. Here, it's a build error."
+   Then, the callback: "Remember the cold open? In Terraform this was a ternary on a string and a count of one-or-zero. Add an environment and nothing tells you. Here, it's three build errors."
 7. Uncomment the FridayAfternoon arms in Policy.cs, the "friday" line in Stages.cs, and GoHomeException.
    Read the comments out loud: "maximum redundancy, maximum anxiety."
 8. dotnet build: green.
