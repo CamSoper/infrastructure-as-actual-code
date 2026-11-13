@@ -10,23 +10,27 @@ Thanks! Before I say who I am, I want to show you something.
 
 ## Slide 2: Infrastructure as code, they said
 
-COLD OPEN (0:00 to 1:30)
+COLD OPEN (0:00 to 1:30). Three clicks: ternary, count, dynamic block.
 
 Show of hands... well, it's a livestream, so: drop a 🙋 in chat if you've ever written "count equals something question-mark one colon zero."
 
 [Beat. Read a couple of chat replies. There will be replies.]
 
-This is real Terraform. A storage account, and a delete lock that only exists in prod.
+This is real Terraform. A storage account and a delete lock. And a few things that should only happen in prod.
 
-Look at what's here. A ternary. String interpolation, those dollar-curly things. And that count line, which is how you write an if statement in Terraform: you ask for one-or-zero of something. Every single line is setting a value.
+[Click 1: the ternary.] Redundancy: a ternary on a string. Fine. Every single line is setting a value.
 
-Now look at what's NOT here. No if statement. No switch. No loop that does anything except build a list. Every decision has to be squeezed into one expression that produces one value. That's configuration.
+[Click 2: count.] The delete lock should only exist in prod. HCL doesn't have an if statement, so you ask for one-or-zero of it. That's an if statement.
 
-What type is var.env? A string. What happens if I misspell "prod" in my tfvars? Nothing. Plan is green. Production quietly gets the dev SKU and no delete lock, and you never find out. Until the outage. On a Friday.
+[Click 3: the dynamic block.] Versioning should only be on in prod. That's a nested block, so count doesn't work. Instead you loop over a list that has one thing in it, or nothing. [Beat.] That's ALSO an if statement.
+
+Now look at what's NOT here. No if. No switch. No loop that does anything except build a list. Every decision is squeezed into one expression that produces one value. That's configuration.
+
+And what type is var.env? A string. Misspell "prod" in your tfvars, and plan is green: production quietly gets the dev SKU, no lock, no versioning. You find out during the outage. On a Friday.
 
 [Slowly.] Probably this Friday.
 
-And if I add a staging environment? Nothing tells me staging needs a decision about redundancy or locks. It just falls through to "not prod."
+Add a staging environment? Nothing tells you staging needs a decision about any of this. It just falls through to "not prod."
 
 We call this "infrastructure as code."
 
