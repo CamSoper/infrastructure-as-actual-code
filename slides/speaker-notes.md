@@ -165,7 +165,7 @@ The story: environments are a closed list (a union). Every rule is a switch over
    Means: CS8509 is "switch doesn't handle every case." Normally a warning. This line makes it a build failure. That's the policy engine.
 4. Browser tab: the dev site.
    On screen: the yellow banner, "Dev: nothing here is real." That's Policy.Banner's Dev arm, live.
-5. "You know what environment we don't have? The one this talk is in."
+5. Say the setup: "Everybody knows the rule: never deploy on Friday afternoon. So let's make Friday afternoon an environment."
    Stages.cs: uncomment line 7 (the FridayAfternoon record) and line 13 (", FridayAfternoon" in the union).
    Means: the closed list just got one bigger. Nothing else changed yet.
 6. dotnet build: 3 errors (6 lines; each prints twice).
