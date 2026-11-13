@@ -64,6 +64,8 @@ When you run "pulumi up," Pulumi runs your program, collects everything you decl
 
 And notice "group.Name": that's a real reference between resources. Pulumi figures out the order from your code. No dependsOn.
 
+The CLI does need somewhere to keep state, but that doesn't have to be Pulumi's service: "pulumi login --local" keeps it in a folder on your machine, or point it at an Azure blob container.
+
 Enough slides. Let's deploy something.
 
 ## Slide 7: Demo: Hello, cloud
