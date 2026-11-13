@@ -86,7 +86,7 @@ Every demo today ticks at least one of these.
 
 ## Slide 8: Pulumi, in one slide
 
-PULUMI IN ONE SLIDE (2:45 to 3:30). Three clicks, same order as the Terraform slide.
+PULUMI IN ONE SLIDE (2:45 to 3:30). Four clicks: the same three as the Terraform slides, then the language list.
 
 Remember that Terraform? Here's the same thing in C#, with Pulumi.
 
@@ -99,6 +99,8 @@ The storage account is just "new StorageAccount." It doesn't create anything rig
 [Click 3.] Versioning only in prod? It goes in the same if. Not a loop over a list of one thing. Just code.
 
 [Beat.] Yes, it's still a string comparison on "prod." Hold that thought; that's what C# 15 fixes in a few minutes.
+
+[Click 4: the language row.] And C# is my pick, not the only one. Same engine in TypeScript, JavaScript, Python, Go, the rest of .NET, Java, and YAML. [Beat.] And yes, HCL. Pulumi runs HCL now. So if your team has a pile of Terraform, you don't have to rewrite it to start; the new stuff can be actual code.
 
 Open source, and no account needed: "pulumi login --local" keeps your state in a folder on your machine, or point it at an Azure blob container.
 
