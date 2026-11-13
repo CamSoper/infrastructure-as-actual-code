@@ -70,7 +70,7 @@ Every demo today ticks at least one of these.
 
 ## Slide 6: Pulumi, in one slide
 
-PULUMI IN ONE SLIDE (2:45 to 3:30)
+PULUMI IN ONE SLIDE (2:45 to 3:30). Three clicks: one per bullet.
 
 Here's the whole mental model. This is a normal C# program. "new StorageAccount" doesn't create a storage account right then; it declares that you want one.
 
@@ -104,7 +104,7 @@ Fallback: browser tab of the already-deployed site + git diff of the change.
 
 ## Slide 8: C# 15: union types
 
-UNIONS IN ONE SLIDE (8:30 to 9:30)
+UNIONS IN ONE SLIDE (8:30 to 9:30). Three clicks: one per bullet.
 
 New in C# 15: union types. A Stage is a Dev, or a Staging, or a Prod. Exactly one. Nothing else.
 
