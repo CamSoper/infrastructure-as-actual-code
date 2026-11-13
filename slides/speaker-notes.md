@@ -112,6 +112,7 @@ Folder: demos/02-compiler-as-policy. Stack "dev" ALREADY deployed; stack "friday
 4. Dev site (browser tab). Read the banner: "Dev: nothing here is real."
 5. "You know what environment we don't have? The one this talk is in." Uncomment FridayAfternoon in Stages.cs (2 lines).
 6. dotnet build: 3 errors. Read one out loud: "Policy.cs line 9: doesn't handle FridayAfternoon." "One per rule. The compiler just reviewed our entire deployment policy."
+   Then, for the Terraform folks: "Your version of this rule is a ternary on a string: var.env == "prod" ? "ZRS" : "LRS". Add an environment and nothing tells you. Misspell prod and you get LRS, quietly. Here, it's a build error."
 7. Uncomment the FridayAfternoon arms in Policy.cs, the "friday" line in Stages.cs, and GoHomeException.
    Read the comments out loud: "maximum redundancy, maximum anxiety."
 8. dotnet build: green.

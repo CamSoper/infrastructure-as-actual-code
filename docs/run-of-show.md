@@ -64,7 +64,7 @@ Everything you need to type is already in the files, commented out. Use **Ctrl+K
 | 3 | `CompilerAsPolicy.csproj`: the `WarningsAsErrors` line. | "CS8509 is the 'your switch missed a case' warning. This one line makes it an error. That's the difference between a policy and a suggestion." |
 | 4 | Browser tab: the `dev` site's yellow banner. | Read it: "Dev: nothing here is real." |
 | 5 | "You know what environment we don't have? The one this talk is in." In `Stages.cs`, uncomment the `FridayAfternoon` record and the `, FridayAfternoon` line in the union. | |
-| 6 | `dotnet build` | Read one error aloud: "Policy.cs line 9: the switch doesn't handle FridayAfternoon." Then: "Three errors. One per rule. The compiler just did a code review of our entire deployment policy." |
+| 6 | `dotnet build` | Read one error aloud: "Policy.cs line 9: the switch doesn't handle FridayAfternoon." Then: "Three errors. One per rule. The compiler just did a code review of our entire deployment policy." Then: "If you're a Terraform shop, your version of this rule is a ternary on a string: `var.env == "prod" ? "ZRS" : "LRS"`. Add an environment and nothing tells you. Misspell prod and you get LRS, quietly. Here, it's a build error." |
 | 7 | In `Policy.cs`, uncomment the three `FridayAfternoon =>` arms and `GoHomeException` at the bottom. In `Stages.cs`, uncomment the `"friday"` line. Read the comments out loud. | "Maximum redundancy, maximum anxiety." |
 | 8 | `dotnet build` | "Green." |
 | 9 | Clear the terminal (Ctrl+L). `pulumi preview --stack friday` | Scroll to the message and read it: "It's Friday afternoon. The deploy can wait. Close the laptop." Then, slowly: "Which is a joke. Probably." |
