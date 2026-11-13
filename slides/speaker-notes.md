@@ -18,7 +18,9 @@ Show of hands... well, it's a livestream, so: drop a 🙋 in chat if you've ever
 
 This is real Terraform. A storage account, and a delete lock that only exists in prod.
 
-Look at that count line. That's how you write an if statement in Terraform: you ask for one-or-zero of something. And the redundancy is a ternary on a string.
+Look at what's here. A ternary. String interpolation, those dollar-curly things. And that count line, which is how you write an if statement in Terraform: you ask for one-or-zero of something. Every single line is setting a value.
+
+Now look at what's NOT here. No if statement. No switch. No loop that does anything except build a list. Every decision has to be squeezed into one expression that produces one value. That's configuration.
 
 What type is var.env? A string. What happens if I misspell "prod" in my tfvars? Nothing. Plan is green. Production quietly gets the dev SKU and no delete lock, and you never find out. Until the outage. On a Friday.
 
@@ -33,6 +35,8 @@ We call this "infrastructure as code."
 ## Slide 3: That's not code. That's config with extra steps.
 
 That's not code. That's config with extra steps.
+
+And don't take my word for it: the C in HCL stands for Configuration. They named it. I'm just reading the label.
 
 To be fair: Terraform is a great tool, and HCL is a real language with real tooling. I'm not here to dunk on it. But environment logic as string comparisons and one-or-zero counts is configuration that learned a few tricks. It's not code with a compiler that knows every case.
 
