@@ -48,7 +48,7 @@ Today: infrastructure as actual code. In C#. With a compiler that says no.
 
 WHO'S THIS GUY (1:30 to 2:00, keep it to 30 seconds)
 
-I'm Cam. I spent 13 years at Microsoft, most of it on .NET and Azure, and some of you might remember me from On .NET Live. These days I'm in systems engineering at Pulumi. I built and run our AI docs system, and now I'm working on Pulumi's agentic SDLC.
+I'm Cam. I spent 13 years at Microsoft, most of it on .NET and Azure, and some of you might remember me from On .NET Live. These days I'm in systems engineering at Pulumi. I built and run our automated docs QA system, and now I'm working on Pulumi's agentic SDLC.
 
 Which means I put AI agents into production for a living. Hold that thought; it matters in demo 3.
 
