@@ -9,9 +9,9 @@ Target: 25 minutes of content, 5 minutes of Q&A. Hard stop on content at 25:00.
 | Time | Slide(s) | What happens |
 |---|---|---|
 | 0:00 | 1 to 5 | Cold open: define IaC in one line, then Terraform, one "if" per slide (ternary, `count = prod ? 1 : 0`, `dynamic`), then "config with extra steps" |
-| 1:30 | 6 | Who's this guy (30 seconds, open source disclaimer) |
-| 2:00 | 7 to 8 | What "actual code" means; Pulumi in one slide |
-| 3:30 | 9 | **Demo 1: Hello, cloud** |
+| 1:45 | 6 | Who's this guy (30 seconds, open source disclaimer) |
+| 2:15 | 7 to 8 | What "actual code" means; Pulumi in one slide |
+| 3:45 | 9 | **Demo 1: Hello, cloud** |
 | 8:30 | 10 | C# 15 unions in one slide |
 | 9:30 | 11 | **Demo 2: The compiler is your policy engine** |
 | 14:30 | 12 to 13 | The hades story; the thesis |
@@ -29,7 +29,7 @@ If you're running long, cut in this order:
 
 ---
 
-## Demo 1: Hello, cloud (3:30 to 8:30)
+## Demo 1: Hello, cloud (3:45 to 8:30)
 
 **Folder:** `demos/01-hello-cloud` **Stack:** `dev`, already deployed
 

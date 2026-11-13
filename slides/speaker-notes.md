@@ -12,62 +12,48 @@ Thanks! Before I say who I am, I want to show you something.
 
 ⏱️ RESET THE TIMER NOW ⏱️
 
-COLD OPEN (0:00 to 1:30). Three slides, one new "if" per slide.
+COLD OPEN (0:00 to 1:45). Keep it moving: about 25 seconds a slide.
 
-[Before anything else: the definition.]
-"Quick definition so we're all on the same page. Infrastructure as code: you describe your cloud in files, check them into source control, and a tool makes reality match. Servers, networks, storage, all of it, reviewed and versioned like code."
+"Infrastructure as code: you describe your cloud in files, and a tool makes reality match."
 
-Show of hands... well, it's a livestream, so: drop a 🙋 in chat if you've ever written "count equals something question-mark one colon zero."
+"Drop a 🙋 in chat if you've ever written count equals something, question mark, one, colon, zero." [Don't wait. Read replies later.]
 
-[Beat. Read a couple of chat replies. There will be replies.]
+"Real Terraform. One storage account, named per environment."
 
-This is real Terraform. One storage account for a website. A variable says which environment we're in, and the dollar-curly bits are string interpolation: site-dev, site-prod.
-
-[Click: the replication line.] Prod should be zone-redundant, everything else can be cheap. So: a ternary on a string. Fine. Totally reasonable.
+[Click: the replication line.]
+"Prod gets zone-redundant. A ternary on a string. Fine."
 
 ## Slide 3: Infrastructure as code, they said
 
-[The storage account is folded up. Same thing as before.]
+[Click 1: the lock.]
+"Prod needs a delete lock."
 
-[Click 1: the lock.] Now prod needs a delete lock, so nobody fat-fingers the production site away.
-
-[Click 2: count.] But only in prod. HCL doesn't have an if statement, so you ask for one-or-zero of it. [Beat.] That's an if statement.
-
-And now that lock is a list. Anything that refers to it says keep-square-bracket-zero, or wraps it in try(). Forever.
+[Click 2: count.]
+"HCL has no if statement, so you ask for one-or-zero of it. [Beat.] That's an if statement."
 
 ## Slide 4: Infrastructure as code, they said
 
-[Click 1: the block.] Last one. Prod needs blob versioning, so you can undo a bad deploy of the site. That's a nested block inside the storage account, so count doesn't work.
+[Click 1: the block.]
+"Prod needs versioning. It's a nested block, so count doesn't work."
 
-[Click 2: for_each.] Instead you loop over a list that has one thing in it, or nothing. [Beat.] That's ALSO an if statement.
+[Click 2: for_each.]
+"So you loop over a list of one thing, or nothing. [Beat.] That's ALSO an if statement."
 
-Now look at what's NOT on any of these slides. No if. No switch. No loop that does anything except build a list. Every decision is squeezed into one expression that produces one value. That's configuration.
+"And var.env is a string. Misspell prod, plan is green, and production quietly gets the dev setup. You find out during the outage. On a Friday."
 
-And what type is var.env? A string. Misspell "prod" in your tfvars, and plan is green: production quietly gets the dev SKU, no lock, no versioning. You find out during the outage. On a Friday.
+[Slowly.] "Probably this Friday."
 
-[Slowly.] Probably this Friday.
-
-Add a staging environment? Nothing tells you staging needs a decision about any of this. It just falls through to "not prod."
-
-We call this "infrastructure as code."
-
-[If chat says "just add a validation block" or "use a map": they're right, and say so. "Yep. Do that, and you get an error at plan time, for the one environment you planned. Hold that thought: in demo 2 the compiler checks every rule, for every environment, before anything runs."]
+(If chat says "use a validation block": "Yep. That catches it at plan time, for the environment you planned. Demo 2 checks every rule, for every environment.")
 
 ## Slide 5: That's not code. That's config with extra steps.
 
-That's not code. That's config with extra steps.
+"That's not code. That's config with extra steps. The C in HCL literally stands for Configuration."
 
-And don't take my word for it: the C in HCL stands for Configuration. They named it. I'm just reading the label.
-
-To be fair: Terraform is a great tool, and HCL is a real language with real tooling. I'm not here to dunk on it. But environment logic as string comparisons and one-or-zero counts is configuration that learned a few tricks. It's not code with a compiler that knows every case.
-
-[Optional aside, if chat's having fun:] HCL even has template directives: percent-curly-if. Classic ASP called. It wants its delimiters back.
-
-Today: infrastructure as actual code. In C#. With a compiler that says no.
+"Terraform's a great tool. But today: infrastructure as actual code. In C#. With a compiler that says no."
 
 ## Slide 6: Cam Soper
 
-WHO'S THIS GUY (1:30 to 2:00, keep it to 30 seconds)
+WHO'S THIS GUY (1:45 to 2:15, keep it to 30 seconds)
 
 I'm Cam. I spent 13 years at Microsoft, most of it on .NET and Azure, and some of you might remember me from On .NET Live. These days I'm in systems engineering at Pulumi. I built and run our automated docs QA system, and now I'm working on Pulumi's agentic SDLC.
 
@@ -79,7 +65,7 @@ And this isn't a conference toy: my home lab and my domains are deployed with ex
 
 ## Slide 7: What “actual code” gets you
 
-WHAT "(ACTUAL)" MEANS (2:00 to 2:45)
+WHAT "(ACTUAL)" MEANS (2:15 to 3:00)
 
 Four clicks: each card fades in as you name it.
 
@@ -97,7 +83,7 @@ Every demo today ticks at least one of these.
 
 ## Slide 8: Pulumi, in one slide
 
-PULUMI IN ONE SLIDE (2:45 to 3:30). Four clicks: the same three as the Terraform slides, then the language list.
+PULUMI IN ONE SLIDE (3:00 to 3:45). Four clicks: the same three as the Terraform slides, then the language list.
 
 Remember that Terraform? Here's the same thing in C#, with Pulumi.
 
@@ -119,7 +105,7 @@ Enough slides. Let's deploy something.
 
 ## Slide 9: Demo: Hello, cloud
 
-DEMO 1: HELLO, CLOUD (3:30 to 8:30). Full cue card in docs/run-of-show.md.
+DEMO 1: HELLO, CLOUD (3:45 to 8:30). Full cue card in docs/run-of-show.md.
 
 Folder: demos/01-hello-cloud. Stack "dev" is ALREADY deployed.
 
