@@ -29,7 +29,7 @@ public static class Policy
         Dev     => new("🚧 Dev: nothing here is real", "#f7b548"),
         Staging => new("🧪 Staging: almost real", "#28c2d1"),
         Prod p  => new($"✅ Production: {p.OnCall} is on call, be nice", "#28c2d1"),
-        // FridayAfternoon => throw new GoHomeException(),
+        // FridayAfternoon => Friday.IsAfternoon() ? throw new GoHomeException() : new("🍻 Not Friday afternoon. Carry on.", "#28c2d1"),
     };
 
     public static Dictionary<string, string> Tags(Stage stage, string stackName)
@@ -51,3 +51,11 @@ public static class Policy
 public record Banner(string Text, string Color);
 
 // class GoHomeException() : Exception("It's Friday afternoon. The deploy can wait. Close the laptop.");
+
+// static class Friday
+// {
+//     // .NET Conf runs on Pacific time, so that's the clock that matters.
+//     public static bool IsAfternoon() =>
+//         TimeZoneInfo.ConvertTime(DateTimeOffset.UtcNow, TimeZoneInfo.FindSystemTimeZoneById("America/Los_Angeles"))
+//             is { DayOfWeek: DayOfWeek.Friday, Hour: >= 12 };
+// }
