@@ -56,6 +56,15 @@ If you're running long, cut in this order:
 
 Everything you need to type is already in the files, commented out. Use **Ctrl+K Ctrl+U** (Cmd+K Cmd+U on a Mac) to uncomment.
 
+**What you're looking at**
+
+- **The story:** environments are a closed list (a union). Every rule is a switch over that list. Add an environment and the compiler flags every rule that hasn't decided about it.
+- **`Stages.cs`:** `Dev` and `Staging` are empty marker records. `Prod` requires `OnCall`. `FromStack` is the one place a stack name (a string) becomes a `Stage` (a type). Its `_ =>` is fine, because strings are open-ended and the union isn't.
+- **`Policy.cs`:** three switches, three rules. `Redundancy` picks the SKU, `IsProtected` sets delete protection, and `Banner` is what the site says. No `_ =>` anywhere, so the compiler checks that each one covers every `Stage`.
+- **`.csproj`:** `WarningsAsErrors` with CS8509 ("switch doesn't handle every case") turns a warning into a failed build. That's the policy engine.
+- **The 3 errors:** one per switch, at `Policy.cs` lines 9, 18, and 27.
+- **The `friday` preview:** `Site.cs` works out the banner before creating anything, so `GoHomeException` stops the deploy before any resource exists.
+
 | # | Do | Say |
 |---|---|---|
 | 1 | `Stages.cs`: the records, the union, `FromStack`. | "Every environment is a type. And look: you can't make a `Prod` without naming who gets paged." |

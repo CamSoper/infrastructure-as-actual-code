@@ -149,19 +149,37 @@ Each case is its own type. Dev and Staging are records with nothing inside: they
 
 DEMO 2: THE COMPILER IS YOUR POLICY ENGINE (9:30 to 14:30). Full cue card in docs/run-of-show.md.
 
-Folder: demos/02-compiler-as-policy. Stack "dev" ALREADY deployed; stack "friday" initialized, never deployed.
+Folder: demos/02-compiler-as-policy. Same website as demo 1, split into files. Stack "dev" ALREADY deployed; stack "friday" initialized, never deployed.
+The story: environments are a closed list (a union). Every rule is a switch over that list. Add an environment, and the compiler flags every rule that hasn't decided about it.
 
-1. Stages.cs: the records, the union, FromStack. "You can't make a Prod without naming who gets paged."
-2. Policy.cs: three switches, no "_ =>". "A discard arm is you telling the compiler to stop helping."
-3. The csproj: "CS8509 is the missed-case warning. This line makes it an error."
-4. Dev site (browser tab). Read the banner: "Dev: nothing here is real."
-5. "You know what environment we don't have? The one this talk is in." Uncomment FridayAfternoon in Stages.cs: line 7 (the record) and line 13 (", FridayAfternoon" in the union).
-6. dotnet build: 3 errors. Read one out loud: "Policy.cs line 9: doesn't handle FridayAfternoon." "One per rule. The compiler just reviewed our entire deployment policy."
-   Then, the callback: "Remember the cold open? In Terraform this was a ternary on a string and a count of one-or-zero. Add an environment and nothing tells you. Here, it's three build errors."
-7. Uncomment the FridayAfternoon arms in Policy.cs (lines 14, 23, 32) and GoHomeException (line 53), plus the "friday" line in Stages.cs (line 24).
+1. Stages.cs.
+   On screen: three records (Dev, Staging, Prod), the union Stage, and FromStack.
+   Means: Dev and Staging are empty marker types. Prod requires OnCall, so you can't make a Prod without naming who gets paged.
+   FromStack is the one place a stack name (string) becomes a Stage (type). Its "_ =>" is fine: strings are open-ended; the union isn't.
+2. Policy.cs.
+   On screen: three switch expressions over Stage. Redundancy (which SKU), IsProtected (delete protection), Banner (what the site says).
+   Means: each switch IS a deployment rule. None has "_ =>", so the compiler checks each one covers every Stage.
+   Say: "A discard arm is you telling the compiler to stop helping."
+3. CompilerAsPolicy.csproj.
+   On screen: the WarningsAsErrors line with CS8509.
+   Means: CS8509 is "switch doesn't handle every case." Normally a warning. This line makes it a build failure. That's the policy engine.
+4. Browser tab: the dev site.
+   On screen: the yellow banner, "Dev: nothing here is real." That's Policy.Banner's Dev arm, live.
+5. "You know what environment we don't have? The one this talk is in."
+   Stages.cs: uncomment line 7 (the FridayAfternoon record) and line 13 (", FridayAfternoon" in the union).
+   Means: the closed list just got one bigger. Nothing else changed yet.
+6. dotnet build: 3 errors (6 lines; each prints twice).
+   On screen: CS8509 at Policy.cs lines 9, 18, 27: one per switch. Read one: "doesn't handle FridayAfternoon."
+   Means: one error per rule. The compiler just reviewed the whole deployment policy for the new environment.
+   Callback: "In Terraform this was a ternary on a string. Add an environment and nothing tells you. Here, three build errors."
+7. Policy.cs: uncomment the FridayAfternoon arms (lines 14, 23, 32) and GoHomeException (line 53). Stages.cs: uncomment the "friday" line (line 24).
+   On screen: RAGZRS (the most redundant SKU), protected = true, and a banner arm that throws instead of returning.
    Read the comments out loud: "maximum redundancy, maximum anxiety."
+   Means: you were forced to decide each rule for the new case. The "friday" line maps the stack name to it.
 8. dotnet build: green.
-9. Clear the terminal. pulumi preview --stack friday. Read it: "It's Friday afternoon. The deploy can wait. Close the laptop." Then, slowly: "Which is a joke. Probably."
+9. Clear the terminal. pulumi preview --stack friday.
+   On screen: the preview fails with GoHomeException. Site.cs computes the banner before creating any resource, so it refuses before anything exists.
+   Read it: "It's Friday afternoon. The deploy can wait. Close the laptop." Then, slowly: "Which is a joke. Probably."
 
 Line to land: "The compiler didn't write the rule. It made me decide. Every single place."
 Fallback: it's all compile time. If Pulumi is sad, skip step 9 and show the GoHomeException line.
