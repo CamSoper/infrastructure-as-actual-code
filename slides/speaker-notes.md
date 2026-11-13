@@ -16,8 +16,6 @@ COLD OPEN (0:00 to 1:45). Keep it moving: about 25 seconds a slide.
 
 "Infrastructure as code: you describe your cloud in files, and a tool makes reality match."
 
-"Drop a 🙋 in chat if you've ever written count equals something, question mark, one, colon, zero." [Don't wait. Read replies later.]
-
 "Real Terraform. One storage account, named per environment."
 
 [Click: the replication line.]
@@ -42,8 +40,6 @@ COLD OPEN (0:00 to 1:45). Keep it moving: about 25 seconds a slide.
 "And var.env is a string. Misspell prod, plan is green, and production quietly gets the dev setup. You find out during the outage. On a Friday."
 
 [Slowly.] "Probably this Friday."
-
-(If chat says "use a validation block": "Yep. That catches it at plan time, for the environment you planned. Demo 2 checks every rule, for every environment.")
 
 ## Slide 5: That's not code. That's config with extra steps.
 
@@ -116,7 +112,7 @@ Folder: demos/01-hello-cloud. Stack "dev" is ALREADY deployed.
 4. Point at group.Name: "A real reference. No dependsOn."
 5. Expand "The content", open Page.cs: "A raw string literal. The poll is LINQ."
 6. Browser tab: "This is live on Azure, right now."
-7. "Chat: who else belongs on the launch crew?" Add one name to crew (Program.cs, line 35). (Backup if chat lags: "Rubber duck".)
+7. "Who else belongs on the launch crew? The rubber duck. Every debugger's first crew member." Add "Rubber duck" to crew in Program.cs (new line after "Unit tests", line 41). "It's user input, so it gets HTML-encoded."
 8. pulumi up. "It's diffing against my last deployment. One resource changes: the page gets replaced. This is terraform plan." Say yes.
 9. Refresh the browser. New crew member is GO.
 
@@ -135,7 +131,7 @@ Each case is its own type. Dev and Staging are records with nothing inside: they
 
 [Click 3: "No default arm needed."] And look what's missing: no underscore default arm. It doesn't need one, because the compiler knows every possible Stage. Which means if I add a fourth one...
 
-(If someone in chat asks about inheritance: C# 15 also adds "closed" class hierarchies that get the same exhaustiveness checks.)
+(If inheritance comes up in Q&A: C# 15 also adds "closed" class hierarchies that get the same exhaustiveness checks.)
 
 ## Slide 11: Demo: The compiler is your policy engine
 
@@ -153,7 +149,7 @@ Folder: demos/02-compiler-as-policy. "dev" is deployed. "friday" is initialized,
 "So the first thing we do is turn that string into a Stage: our own type for what kind of environment this stack is. Everything below asks the Stage, never the string." 
 
 [F12 into FromStack. Stages.cs.]
-"Here's the one place a stack name turns into a type." (If chat spots its "_ =>": strings are open-ended. The union isn't.)
+"Here's the one place a stack name turns into a type." (If anyone asks about its "_ =>": strings are open-ended. The union isn't.)
 
 [Scroll up. Highlight the three records.]
 "Every environment is a type. Dev and Staging carry nothing; being Dev is the whole message. Prod needs an OnCall name. You can't make a Prod without naming who gets paged."
@@ -256,13 +252,13 @@ All three demos, the slides, and these speaker notes. There's a test project tha
 
 And as a bonus: the whole thing in a single C# file. dotnet run deploy.cs. One gotcha that'll bite you: file-based apps set PublishAot=true by default, which turns off reflection-based JSON, and Pulumi needs it. Add "#:property PublishAot=false" at the top. Ask me how I know.
 
-[Drop the repo link in chat now.]
+[The QR code and link are on screen. Leave this slide up for a few seconds.]
 
 ## Slide 16: Thank you
 
 Q&A (24:30 to 30:00)
 
-Seed questions, in case chat is quiet:
+Seed questions, in case Q&A is quiet:
 
 - "Can I use this with the Bicep/ARM I already have?"
   Yes. "pulumi import" adopts existing resources into code, and there are converters for ARM and Terraform. [Verify the Bicep converter's status before you promise it.]

@@ -21,7 +21,7 @@ Target: 25 minutes of content, 5 minutes of Q&A. Hard stop on content at 25:00.
 
 If you're running long, cut in this order:
 
-1. Demo 1, step 7 (the chat crew member). Add a name yourself. Chat lags 10 to 30 seconds, so if nobody's answered by the time you finish saying it, use "Rubber duck."
+1. Demo 1, steps 7 to 9 (add a crew member and redeploy). Show the live site and move on.
 2. Slide 12 (the hades story). Go straight to slide 13.
 3. Demo 2, step 11 (`pulumi preview --stack friday`). Point at `GoHomeException` instead. Demo 3 delivers that joke for real anyway.
 
@@ -41,7 +41,7 @@ If you're running long, cut in this order:
 | 4 | Point at `group.Name` in the storage account. | "That's a real reference. Pulumi works out the order from the code. No `dependsOn`." |
 | 5 | Expand "The content". Open `Page.cs`. | "The website is a raw string literal. The go/no-go poll is LINQ." |
 | 6 | Switch to the browser tab with the deployed site. | "This is live on Azure, right now." |
-| 7 | "Chat, who else belongs on the launch crew?" Add one name to `crew` (`Program.cs`, line 35). | "Chat input, so it gets HTML-encoded. I've met chat." |
+| 7 | Add `"Rubber duck"` to `crew` in `Program.cs` (new line after `"Unit tests"`, line 41). | "Who else belongs on the launch crew? The rubber duck. Every debugger's first crew member. It's user input, so it gets HTML-encoded." |
 | 8 | `pulumi up` | "Preview first. It's diffing against what I deployed last time. One resource changes: the page gets replaced. Nothing else gets touched. If you've used Terraform, this is `terraform plan`." Select **yes**. |
 | 9 | Refresh the browser. | "New crew member, GO for launch." |
 
@@ -159,7 +159,6 @@ Then by hand:
 - [ ] Every `pulumi preview`/`up` starts with ~10 lines of `dotnet build` output. Scroll past it to the diff.
 - [ ] `az account show` returns the subscription you expect. No secrets on screen.
 - [ ] Agent signed in and warm (run one throwaway prompt).
-- [ ] A backup crew name for demo 1, in case chat is slow.
 - [ ] Fallback videos open in a tab.
 
 ## Cleanup (after the talk)

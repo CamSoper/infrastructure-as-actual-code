@@ -9,7 +9,7 @@ static class Page
         var poll = crew
             .Select(member => (member, status: "GO"));
 
-        // HtmlEncode, because anything a human (or a chat) typed is untrusted input.
+        // HtmlEncode, because anything a human typed is untrusted input.
         var rows = string.Join("\n", poll.Select(p =>
             $"""      <li><span class="who">{WebUtility.HtmlEncode(p.member)}</span> <span class="{(p.status == "GO" ? "go" : "nogo")}">{p.status}</span></li>"""));
 

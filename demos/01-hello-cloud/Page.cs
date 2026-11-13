@@ -10,7 +10,7 @@ static class Page
         var poll = crew
             .Select(member => (member, status: "GO"));
 
-        // HtmlEncode, because names suggested by a live YouTube chat are untrusted input.
+        // HtmlEncode, because names typed by humans are untrusted input.
         var rows = string.Join("\n", poll.Select(p =>
             $"""      <li><span class="who">{WebUtility.HtmlEncode(p.member)}</span> <span class="{(p.status == "GO" ? "go" : "nogo")}">{p.status}</span></li>"""));
 
