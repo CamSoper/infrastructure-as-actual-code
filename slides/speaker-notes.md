@@ -60,6 +60,8 @@ And this isn't a conference toy: my home lab and my domains are deployed with ex
 
 WHAT "(ACTUAL)" MEANS (2:00 to 2:45)
 
+[Four clicks: each card fades in as you name it.]
+
 When I say "actual code," I mean four things your app code already gets and your YAML doesn't.
 
 A compiler. Types and IntelliSense: you can F12 into a storage account. Tests: you can unit-test infrastructure without touching a cloud. And packages: infrastructure you can share on NuGet.
