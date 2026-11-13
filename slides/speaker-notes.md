@@ -12,6 +12,9 @@ Thanks! Before I say who I am, I want to show you something.
 
 COLD OPEN (0:00 to 1:30). Three slides, one new "if" per slide.
 
+[Before anything else: the definition.]
+"Quick definition so we're all on the same page. Infrastructure as code: you describe your cloud in files, check them into source control, and a tool makes reality match. Servers, networks, storage, all of it, reviewed and versioned like code."
+
 Show of hands... well, it's a livestream, so: drop a 🙋 in chat if you've ever written "count equals something question-mark one colon zero."
 
 [Beat. Read a couple of chat replies. There will be replies.]

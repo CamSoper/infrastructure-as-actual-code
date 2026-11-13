@@ -8,7 +8,7 @@ Target: 25 minutes of content, 5 minutes of Q&A. Hard stop on content at 25:00.
 
 | Time | Slide(s) | What happens |
 |---|---|---|
-| 0:00 | 1 to 5 | Cold open: Terraform, one "if" per slide (ternary, `count = prod ? 1 : 0`, `dynamic`), then "config with extra steps" |
+| 0:00 | 1 to 5 | Cold open: define IaC in one line, then Terraform, one "if" per slide (ternary, `count = prod ? 1 : 0`, `dynamic`), then "config with extra steps" |
 | 1:30 | 6 | Who's this guy (30 seconds, open source disclaimer) |
 | 2:00 | 7 to 8 | What "actual code" means; Pulumi in one slide |
 | 3:30 | 9 | **Demo 1: Hello, cloud** |
