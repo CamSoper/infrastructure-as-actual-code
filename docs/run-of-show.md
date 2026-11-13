@@ -103,7 +103,6 @@ Run `./scripts/prep.sh` (bash, in WSL). It:
 2. Builds every project and runs the tests.
 3. Creates and deploys the `dev` stacks for demos 1 and 2 (so the live `pulumi up` only replaces one file).
 4. Creates the `friday` stack in demo 2.
-5. Creates the `pr-1013` stack in demo 3. Demo 3 is cut from the live talk, so you can ignore this step.
 
 Then by hand:
 
