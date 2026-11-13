@@ -37,7 +37,7 @@ COLD OPEN (0:00 to 1:45). Keep it moving: about 25 seconds a slide.
 [Click 2: for_each.]
 "So you loop over a list of one thing, or nothing. [Beat.] That's ALSO an if statement."
 
-"And var.env is a string. Misspell prod, plan is green, and production quietly gets the dev setup. You find out during the outage. On a Friday."
+"And var.env is a string. Misspell prod, plan is green, and production quietly gets the dev setup. You find out during the outage. Naturally, on a Friday afternoon. Unless you're Microsoft, and then Thursday afternoons are an option."
 
 [Slowly.] "Probably this Friday."
 
