@@ -4,6 +4,8 @@ Infrastructure as (Actual) Code with C# 15 and .NET 11. Cam Soper, .NET Conf 202
 
 ## Slide 1: Infrastructure as (Actual) Code with C# 15 and .NET 11
 
+⏱️ Before the clock. The timer starts on the next slide.
+
 [Host intro. Smile. Don't start talking about yourself yet; the cold open does the work.]
 
 Thanks! Before I say who I am, I want to show you something.
@@ -23,6 +25,8 @@ COLD OPEN (0:00 to 1:45). Keep it moving: about 25 seconds a slide.
 
 ## Slide 3: Infrastructure as code, they said
 
+⏱️ ~0:45
+
 [Click 1: the lock.]
 "Prod needs a delete lock."
 
@@ -30,6 +34,8 @@ COLD OPEN (0:00 to 1:45). Keep it moving: about 25 seconds a slide.
 "HCL has no if statement, so you ask for one-or-zero of it. [Beat.] That's an if statement."
 
 ## Slide 4: Infrastructure as code, they said
+
+⏱️ ~1:05
 
 [Click 1: the block.]
 "Prod needs versioning. It's a nested block, so count doesn't work."
@@ -42,6 +48,8 @@ COLD OPEN (0:00 to 1:45). Keep it moving: about 25 seconds a slide.
 [Slowly.] "Probably this Friday."
 
 ## Slide 5: That's not code. That's config with extra steps.
+
+⏱️ ~1:30. Off this slide by 1:45.
 
 "That's not code. That's config with extra steps. The C in HCL literally stands for Configuration."
 
@@ -116,6 +124,8 @@ Folder: demos/01-hello-cloud. Stack "dev" is ALREADY deployed.
 8. pulumi up. "It's diffing against my last deployment. One resource changes: the page gets replaced. This is terraform plan." Say yes.
 9. Refresh the browser. New crew member is GO.
 
+⏱️ Checkpoint: be at pulumi up (step 8) by about 8:30. Off this slide by 10:00.
+
 Line to land: "That's a loop, a string, and a list. In a real language. With a compiler watching."
 Fallback: browser tab of the already-deployed site + git diff of the change.
 
@@ -175,6 +185,8 @@ Folder: demos/02-compiler-as-policy. "dev" is deployed. "friday" is initialized,
 [Browser: the dev site. Point at the yellow banner.]
 "Dev: nothing here is real. That's the Dev arm of the banner switch, live."
 
+⏱️ Checkpoint: start the Friday setup by about 14:30.
+
 [Back to Stages.cs.]
 "Everybody knows the rule: never deploy on Friday afternoon. So let's make Friday afternoon an environment."
 [Uncomment line 7 (the record) and line 13 (", FridayAfternoon").]
@@ -196,6 +208,7 @@ Read the comments: "Maximum redundancy, maximum anxiety. Nobody touches anything
 (It fails before any resource exists: the banner is worked out first.)
 
 Land it: "The compiler didn't write the rule. It made me decide. Every single place."
+⏱️ Off this slide by 18:00.
 Fallback: if Pulumi is sad, skip the preview and show the GoHomeException line.
 
 ## Slide 12: A rule for my agents. In bold.

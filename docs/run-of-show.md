@@ -4,11 +4,13 @@
 .NET Conf 2026 Community Days, Friday, November 13, 2:30 to 3:00 PM PST (4:30 CT). StreamYard, 1920 x 1080.
 Check in with the host 15 minutes early. Be back 5 minutes before start.
 
-Target: about 21 minutes of content, then Q&A. Hard stop on content at 25:00.
+Target: about 21 minutes of content, then Q&A. Hard stop on content at 25:00. Start the timer on slide 2; slide 1 is the host intro.
+
+**Checkpoints:** 0:45 lock slide, 1:05 versioning slide, 1:45 bio, 3:45 demo 1, 8:30 `pulumi up` in demo 1, 11:00 demo 2, 14:30 the Friday setup, 18:00 hades story, 21:00 Q&A.
 
 | Time | Slide(s) | What happens |
 |---|---|---|
-| 0:00 | 1 to 5 | Cold open: define IaC in one line, then Terraform, one "if" per slide (ternary, `count = prod ? 1 : 0`, `dynamic`), then "config with extra steps" |
+| 0:00 | 2 to 5 | Cold open: define IaC in one line, then Terraform, one "if" per slide (ternary, `count = prod ? 1 : 0`, `dynamic`), then "config with extra steps" |
 | 1:45 | 6 | Who's this guy (30 seconds, open source disclaimer) |
 | 2:15 | 7 to 8 | What "actual code" means; Pulumi in one slide |
 | 3:45 | 9 | **Demo 1: Hello, cloud** |
