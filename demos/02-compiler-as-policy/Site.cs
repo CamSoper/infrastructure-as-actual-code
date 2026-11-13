@@ -12,7 +12,7 @@ public static class Site
         var stackName = Pulumi.Deployment.Instance.StackName;
         var config = new Config();
         Stage stage = Stages.FromStack(stackName, config);
-
+        // DeployWindow.Check(stage);   // the Friday rule: uncomment me
         // Work out the banner before creating anything, so a stage that refuses to deploy
         // refuses before any resource exists.
         var banner = Policy.Banner(stage);

@@ -11,7 +11,7 @@ public static class Policy
         Dev     => SkuName.Standard_LRS,   // locally redundant: one datacenter
         Staging => SkuName.Standard_LRS,
         Prod    => SkuName.Standard_ZRS,   // zone redundant: three datacenters
-        // FridayAfternoon => SkuName.Standard_RAGZRS,   // maximum redundancy, maximum anxiety
+        // Preview => SkuName.Standard_LRS,   // throwaway, so cheap
     };
 
     // Protected resources can't be deleted until someone deliberately unprotects them.
@@ -20,7 +20,7 @@ public static class Policy
         Dev     => false,
         Staging => false,
         Prod    => true,
-        // FridayAfternoon => true,                      // nobody touches anything
+        // Preview => false,                  // previews get deleted; don't make that hard
     };
 
     // What the website says about where you are.
@@ -29,7 +29,7 @@ public static class Policy
         Dev     => new("🚧 Dev: nothing here is real", "#f7b548"),
         Staging => new("🧪 Staging: almost real", "#28c2d1"),
         Prod p  => new($"✅ Production: {p.OnCall} is on call, be nice", "#28c2d1"),
-        // FridayAfternoon => Friday.IsAfternoon() ? throw new GoHomeException() : new("🍻 Not Friday afternoon. Carry on.", "#28c2d1"),
+        // Preview p => new($"🔍 Preview of pull request #{p.PullRequest}", "#b9aaee"),
     };
 
     public static Dictionary<string, string> Tags(Stage stage, string stackName)
@@ -52,10 +52,15 @@ public record Banner(string Text, string Color);
 
 // class GoHomeException() : Exception("It's Friday afternoon. The deploy can wait. Close the laptop.");
 
-// static class Friday
+// // The newest rule: no prod deploys on Friday afternoon. Pacific time, because that's where .NET Conf is.
+// public static class DeployWindow
 // {
-//     // .NET Conf runs on Pacific time, so that's the clock that matters.
-//     public static bool IsAfternoon() =>
+//     public static void Check(Stage stage)
+//     {
+//         if (stage is Prod && IsFridayAfternoon()) throw new GoHomeException();
+//     }
+//
+//     static bool IsFridayAfternoon() =>
 //         TimeZoneInfo.ConvertTime(DateTimeOffset.UtcNow, TimeZoneInfo.FindSystemTimeZoneById("America/Los_Angeles"))
 //             is { DayOfWeek: DayOfWeek.Friday, Hour: >= 12 };
 // }
