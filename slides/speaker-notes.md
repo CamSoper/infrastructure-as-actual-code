@@ -121,15 +121,16 @@ DEMO 1: HELLO, CLOUD (3:30 to 8:30). Full cue card in docs/run-of-show.md.
 
 Folder: demos/01-hello-cloud. Stack "dev" is ALREADY deployed.
 
-1. Program.cs. Collapse both regions, expand "The infrastructure".
+1. Pulumi.yaml. "The project file. A name, runtime: dotnet, and one setting, the Azure region. It's not the infrastructure; it tells Pulumi how to run my program."
+2. Program.cs. Collapse both regions, expand "The infrastructure".
    "It's a console app. Program.cs, a csproj, NuGet packages. That's it."
-2. Hover SkuName.Standard_LRS: "IntelliSense for Azure. LRS is locally redundant: one datacenter."
-3. Point at group.Name: "A real reference. No dependsOn."
-4. Expand "The content", open Page.cs: "A raw string literal. The poll is LINQ."
-5. Browser tab: "This is live on Azure, right now."
-6. "Chat: who else belongs on the launch crew?" Add one name to crew (Program.cs, line 35). (Backup if chat lags: "Rubber duck".)
-7. pulumi up. "It's diffing against my last deployment. One resource changes: the page gets replaced. This is terraform plan." Say yes.
-8. Refresh the browser. New crew member is GO.
+3. Hover SkuName.Standard_LRS: "IntelliSense for Azure. LRS is locally redundant: one datacenter."
+4. Point at group.Name: "A real reference. No dependsOn."
+5. Expand "The content", open Page.cs: "A raw string literal. The poll is LINQ."
+6. Browser tab: "This is live on Azure, right now."
+7. "Chat: who else belongs on the launch crew?" Add one name to crew (Program.cs, line 35). (Backup if chat lags: "Rubber duck".)
+8. pulumi up. "It's diffing against my last deployment. One resource changes: the page gets replaced. This is terraform plan." Say yes.
+9. Refresh the browser. New crew member is GO.
 
 Line to land: "That's a loop, a string, and a list. In a real language. With a compiler watching."
 Fallback: browser tab of the already-deployed site + git diff of the change.

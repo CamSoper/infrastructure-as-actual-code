@@ -23,7 +23,7 @@ If you're running long, cut in this order:
 
 1. Demo 1, step 7 (the chat crew member). Add a name yourself. Chat lags 10 to 30 seconds, so if nobody's answered by the time you finish saying it, use "Rubber duck."
 2. Slide 12 (the hades story). Go straight to slide 13.
-3. Demo 2, step 9 (`pulumi preview --stack friday`). Point at `GoHomeException` instead. Demo 3 delivers that joke for real anyway.
+3. Demo 2, step 11 (`pulumi preview --stack friday`). Point at `GoHomeException` instead. Demo 3 delivers that joke for real anyway.
 
 **Never cut demo 3, steps 7 and 8.** They're the payoff.
 
@@ -35,14 +35,15 @@ If you're running long, cut in this order:
 
 | # | Do | Say |
 |---|---|---|
-| 1 | Open `Program.cs`. Collapse both regions, then expand "The infrastructure". | "It's a console app. A `.csproj`, NuGet packages, `Program.cs`. That's the whole project." |
-| 2 | Hover `SkuName.Standard_LRS`. | "IntelliSense for Azure. Every property, every allowed value, documented. LRS means locally redundant: one datacenter. Fine for a demo." |
-| 3 | Point at `group.Name` in the storage account. | "That's a real reference. Pulumi works out the order from the code. No `dependsOn`." |
-| 4 | Expand "The content". Open `Page.cs`. | "The website is a raw string literal. The go/no-go poll is LINQ." |
-| 5 | Switch to the browser tab with the deployed site. | "This is live on Azure, right now." |
-| 6 | "Chat, who else belongs on the launch crew?" Add one name to `crew` (`Program.cs`, line 35). | "Chat input, so it gets HTML-encoded. I've met chat." |
-| 7 | `pulumi up` | "Preview first. It's diffing against what I deployed last time. One resource changes: the page gets replaced. Nothing else gets touched. If you've used Terraform, this is `terraform plan`." Select **yes**. |
-| 8 | Refresh the browser. | "New crew member, GO for launch." |
+| 1 | Open `Pulumi.yaml`. | "The project file. A name, `runtime: dotnet`, and one setting: the Azure region. It's not the infrastructure; it tells Pulumi how to run my program." |
+| 2 | Open `Program.cs`. Collapse both regions, then expand "The infrastructure". | "It's a console app. A `.csproj`, NuGet packages, `Program.cs`. That's the whole project." |
+| 3 | Hover `SkuName.Standard_LRS`. | "IntelliSense for Azure. Every property, every allowed value, documented. LRS means locally redundant: one datacenter. Fine for a demo." |
+| 4 | Point at `group.Name` in the storage account. | "That's a real reference. Pulumi works out the order from the code. No `dependsOn`." |
+| 5 | Expand "The content". Open `Page.cs`. | "The website is a raw string literal. The go/no-go poll is LINQ." |
+| 6 | Switch to the browser tab with the deployed site. | "This is live on Azure, right now." |
+| 7 | "Chat, who else belongs on the launch crew?" Add one name to `crew` (`Program.cs`, line 35). | "Chat input, so it gets HTML-encoded. I've met chat." |
+| 8 | `pulumi up` | "Preview first. It's diffing against what I deployed last time. One resource changes: the page gets replaced. Nothing else gets touched. If you've used Terraform, this is `terraform plan`." Select **yes**. |
+| 9 | Refresh the browser. | "New crew member, GO for launch." |
 
 **Land it:** "That's a loop, a string, and a list. In a real language. With a compiler watching."
 
