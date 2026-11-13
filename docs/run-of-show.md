@@ -133,7 +133,6 @@ Then by hand:
 - [ ] Agent permissions: allow `dotnet build` without asking, so you don't approve prompts on stream. **Deny** `pulumi` outright. An agent that runs `pulumi preview` on Friday afternoon spoils step 7, and one that sets `blame` to get past it kills the joke for good.
 - [ ] Rehearse the Friday payoff on Thursday: it won't fire. To see it, temporarily point `FridayRule.Clock` at a Friday, or just trust the tests (`Friday_afternoon_blocks_every_stack`).
 - [ ] Record a fallback video of each demo (StreamYard can share a second tab).
-- [ ] Swap the bot on slide 4 for your headshot.
 - [ ] Push the repo public, and check the QR code on slide 13 opens it.
 
 ## Day of

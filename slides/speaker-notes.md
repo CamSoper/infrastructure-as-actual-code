@@ -36,13 +36,13 @@ Today: infrastructure as actual code. In C#. With a compiler that says no.
 
 WHO'S THIS GUY (1:30 to 2:00, keep it to 30 seconds)
 
-I'm Cam. I spent 13 years at Microsoft, most of it on .NET and Azure docs, and some of you might remember me from On .NET Live. These days I write docs at Pulumi.
+I'm Cam. I spent 13 years at Microsoft, most of it on .NET and Azure, and some of you might remember me from On .NET Live. These days I'm in systems engineering at Pulumi. I built and run our AI docs system, and now I'm working on Pulumi's agentic SDLC.
+
+Which means I put AI agents into production for a living. Hold that thought; it matters in demo 3.
 
 Quick disclaimer, since I work there: everything you'll see today is open source. No sign-up, no paid features. The demos are the pitch; I'm not going to do a sales slide.
 
 And this isn't a conference toy: my home lab and my domains are deployed with exactly this.
-
-[Swap the bot picture for your headshot before Friday.]
 
 ## Slide 5: What “actual code” gets you
 
@@ -138,6 +138,8 @@ The union version: every service gets exactly one auth posture. hades is SelfOAu
 THE THESIS (16:00 to 16:30). Pause on this one. Let it sit.
 
 A rule written in an agent's instructions is a suggestion. A rule written in the type system is enforced, no matter who, or what, wrote the change.
+
+I put agents into production for a living. That's exactly why I trust them as far as the compiler does, and no further.
 
 So let's test that. Let's hand the keyboard to a robot.
 
