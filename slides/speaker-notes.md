@@ -123,6 +123,9 @@ Fallback: browser tab of the already-deployed site + git diff of the change.
 
 UNIONS IN ONE SLIDE (8:30 to 9:30). Three clicks, one per bullet.
 
+"You've probably seen demos of this already: Mads and Dustin opened Tuesday with it in 'What's new in C#', and Bill Wagner's been blogging about unions since April."
+"Here's why it's a great feature for infrastructure: your environments are a closed set. Dev, staging, prod. And every infra rule is a per-environment decision. A union makes the set closed, a switch makes the rule, and the compiler checks every rule covers every environment."
+
 [Click 1: "Exactly one of a fixed set."] New in C# 15: union types. A Stage is a Dev, or a Staging, or a Prod. Exactly one. Nothing else.
 
 Each case is its own type. Dev and Staging are records with nothing inside: they don't carry any data, because being Dev is the whole message. Prod carries an OnCall name. You literally cannot construct production without naming who gets paged. Invalid states, unrepresentable.
