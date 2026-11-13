@@ -39,11 +39,10 @@ If you're running long, cut in this order:
 | 2 | Hover `SkuName.Standard_LRS`. | "IntelliSense for Azure. Every property, every allowed value, documented. LRS means locally redundant: one datacenter. Fine for a demo." |
 | 3 | Point at `group.Name` in the storage account. | "That's a real reference. Pulumi works out the order from the code. No `dependsOn`." |
 | 4 | Expand "The content". Open `Page.cs`. | "The website is a raw string literal. The go/no-go poll is LINQ." |
-| 5 | Point at YAML's row. | Read it out: "YAML: no-go. Unexpected indentation, line 7." Then pause. |
-| 6 | Switch to the browser tab with the deployed site. | "This is live on Azure, right now." |
-| 7 | "Chat, who else belongs on the launch crew?" Add one name to `crew`. | "Chat input, so it gets HTML-encoded. I've met chat." |
-| 8 | `pulumi up` | "Preview first. It's diffing against what I deployed last time. One resource changes: the page gets replaced. Nothing else gets touched. If you've used Terraform, this is `terraform plan`." Select **yes**. |
-| 9 | Refresh the browser. | "New crew member, GO for launch." |
+| 5 | Switch to the browser tab with the deployed site. | "This is live on Azure, right now." |
+| 6 | "Chat, who else belongs on the launch crew?" Add one name to `crew` (`Program.cs`, line 35). | "Chat input, so it gets HTML-encoded. I've met chat." |
+| 7 | `pulumi up` | "Preview first. It's diffing against what I deployed last time. One resource changes: the page gets replaced. Nothing else gets touched. If you've used Terraform, this is `terraform plan`." Select **yes**. |
+| 8 | Refresh the browser. | "New crew member, GO for launch." |
 
 **Land it:** "That's a loop, a string, and a list. In a real language. With a compiler watching."
 
@@ -63,9 +62,9 @@ Everything you need to type is already in the files, commented out. Use **Ctrl+K
 | 2 | `Policy.cs`: three switches. | "Our deployment rules. Redundancy, delete protection, the banner. And notice what's missing: no `_ =>`. A discard arm is you telling the compiler to stop helping." |
 | 3 | `CompilerAsPolicy.csproj`: the `WarningsAsErrors` line. | "CS8509 is the 'your switch missed a case' warning. This one line makes it an error. That's the difference between a policy and a suggestion." |
 | 4 | Browser tab: the `dev` site's yellow banner. | Read it: "Dev: nothing here is real." |
-| 5 | "You know what environment we don't have? The one this talk is in." In `Stages.cs`, uncomment the `FridayAfternoon` record and the `, FridayAfternoon` line in the union. | |
+| 5 | "You know what environment we don't have? The one this talk is in." In `Stages.cs`, uncomment the `FridayAfternoon` record (line 7) and the `, FridayAfternoon` line in the union (line 13). | |
 | 6 | `dotnet build` | You'll see 6 error lines (each is printed twice); point at the "3 Error(s)" summary. Read one error aloud: "Policy.cs line 9: the switch doesn't handle FridayAfternoon." Then: "Three errors. One per rule. The compiler just did a code review of our entire deployment policy." Then the callback: "Remember the cold open? In Terraform this was a ternary on a string and a count of one-or-zero. Add an environment and nothing tells you. Here, it's three build errors." |
-| 7 | In `Policy.cs`, uncomment the three `FridayAfternoon =>` arms and `GoHomeException` at the bottom. In `Stages.cs`, uncomment the `"friday"` line. Read the comments out loud. | "Maximum redundancy, maximum anxiety." |
+| 7 | In `Policy.cs`, uncomment the three `FridayAfternoon =>` arms (lines 14, 23, 32) and `GoHomeException` at the bottom (line 53). In `Stages.cs`, uncomment the `"friday"` line (line 24). Read the comments out loud. | "Maximum redundancy, maximum anxiety." |
 | 8 | `dotnet build` | "Green." |
 | 9 | Clear the terminal (Ctrl+L). `pulumi preview --stack friday` | Scroll to the message and read it: "It's Friday afternoon. The deploy can wait. Close the laptop." Then, slowly: "Which is a joke. Probably." |
 
@@ -86,7 +85,7 @@ Everything you need to type is already in the files, commented out. Use **Ctrl+K
 | # | Do | Say |
 |---|---|---|
 | 1 | Open `AGENTS.md`. Read the last two lines off the screen. | "Do NOT deploy on Friday afternoons." Then the next line: "Bold is a suggestion." |
-| 2 | In `Stages.cs`, uncomment the `Preview` record and the `, Preview` line. `dotnet build`. | "Per-pull-request preview environments. I added the type. And now the build is broken: three errors. Same as last time. Except this time I'm not fixing them." |
+| 2 | In `Stages.cs`, uncomment the `Preview` record (line 8) and the `, Preview` line (line 15). `dotnet build`. | "Per-pull-request preview environments. I added the type. And now the build is broken: three errors. Same as last time. Except this time I'm not fixing them." |
 | 3 | Start your agent in this folder. Paste `prompts/preview-environments.md`. **Start a 90-second timer.** | "Here's the prompt. 'I added a Preview environment and the build is broken. Fix it.' Plus one line on how preview stacks are named. The compiler wrote the rest of the to-do list." |
 | 4 | Narrate while it works. If it hits 90 seconds, cut it off and use the fallback. | "Watch where it goes. Not a search. Straight to the errors." If the agent mentions `FridayRule` or Friday, lean in: "Even the robot's warning me." |
 | 5 | `git diff` | Check out loud: "Every switch handled? No sneaky `_ =>`? Preview is cheap, unprotected, and the banner says which PR? And `FromStack` turns `pr-1013` into a Preview?" **If that last one is missing, use the fallback.** Without it, step 7 fails with "isn't an environment we know how to build" instead of the punchline. Read the banner line: "Preview of pull request number 1013." |

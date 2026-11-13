@@ -7,8 +7,7 @@ static class Page
     public static string Render(Banner banner, IEnumerable<string> crew, string? footer = null)
     {
         var poll = crew
-            .Select(member => (member, status: "GO"))
-            .Append((member: "YAML", status: "NO-GO (unexpected indentation, line 7)"));
+            .Select(member => (member, status: "GO"));
 
         // HtmlEncode, because anything a human (or a chat) typed is untrusted input.
         var rows = string.Join("\n", poll.Select(p =>

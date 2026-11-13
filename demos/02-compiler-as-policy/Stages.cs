@@ -4,13 +4,13 @@
 public record Dev;
 public record Staging;
 public record Prod(string OnCall);   // You can't build a Prod without naming who gets paged.
-// public record FridayAfternoon;    // DEMO 2: uncomment me
+// public record FridayAfternoon;
 
 public union Stage(
     Dev,
     Staging,
     Prod
-    // , FridayAfternoon             // DEMO 2: ...and me
+    // , FridayAfternoon
 );
 
 public static class Stages
@@ -21,7 +21,7 @@ public static class Stages
         "dev"     => new Dev(),
         "staging" => new Staging(),
         "prod"    => new Prod(OnCall: config.Require("onCall")),
-        // "friday"  => new FridayAfternoon(),   // DEMO 2: ...and me
+        // "friday"  => new FridayAfternoon(),
         _ => throw new ArgumentException($"'{stackName}' isn't an environment we know how to build."),
     };
 }

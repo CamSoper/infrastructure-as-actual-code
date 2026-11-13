@@ -1,5 +1,5 @@
 // Demo 1: Hello, cloud.
-// A real Azure website, in plain C#. No YAML was harmed in the making of this demo.
+// A real Azure website, in plain C#.
 
 using Pulumi;
 using Pulumi.AzureNative.Resources;
@@ -32,7 +32,6 @@ return await Pulumi.Deployment.RunAsync(() =>
 
     #region The content (it's just C#)
     // The launch crew. It's a C# collection, so loops, LINQ, and IntelliSense come free.
-    // DEMO: ask chat who else belongs on the crew, add them here, then `pulumi up`.
     string[] crew =
     [
         "The compiler",

@@ -117,11 +117,10 @@ Folder: demos/01-hello-cloud. Stack "dev" is ALREADY deployed.
 2. Hover SkuName.Standard_LRS: "IntelliSense for Azure. LRS is locally redundant: one datacenter."
 3. Point at group.Name: "A real reference. No dependsOn."
 4. Expand "The content", open Page.cs: "A raw string literal. The poll is LINQ."
-5. Read YAML's row out loud: "YAML: no-go. Unexpected indentation, line 7." Pause.
-6. Browser tab: "This is live on Azure, right now."
-7. "Chat: who else belongs on the launch crew?" Add one name to crew. (Backup if chat lags: "Rubber duck".)
-8. pulumi up. "It's diffing against my last deployment. One resource changes: the page gets replaced. This is terraform plan." Say yes.
-9. Refresh the browser. New crew member is GO.
+5. Browser tab: "This is live on Azure, right now."
+6. "Chat: who else belongs on the launch crew?" Add one name to crew (Program.cs, line 35). (Backup if chat lags: "Rubber duck".)
+7. pulumi up. "It's diffing against my last deployment. One resource changes: the page gets replaced. This is terraform plan." Say yes.
+8. Refresh the browser. New crew member is GO.
 
 Line to land: "That's a loop, a string, and a list. In a real language. With a compiler watching."
 Fallback: browser tab of the already-deployed site + git diff of the change.
@@ -150,10 +149,10 @@ Folder: demos/02-compiler-as-policy. Stack "dev" ALREADY deployed; stack "friday
 2. Policy.cs: three switches, no "_ =>". "A discard arm is you telling the compiler to stop helping."
 3. The csproj: "CS8509 is the missed-case warning. This line makes it an error."
 4. Dev site (browser tab). Read the banner: "Dev: nothing here is real."
-5. "You know what environment we don't have? The one this talk is in." Uncomment FridayAfternoon in Stages.cs (2 lines).
+5. "You know what environment we don't have? The one this talk is in." Uncomment FridayAfternoon in Stages.cs: line 7 (the record) and line 13 (", FridayAfternoon" in the union).
 6. dotnet build: 3 errors. Read one out loud: "Policy.cs line 9: doesn't handle FridayAfternoon." "One per rule. The compiler just reviewed our entire deployment policy."
    Then, the callback: "Remember the cold open? In Terraform this was a ternary on a string and a count of one-or-zero. Add an environment and nothing tells you. Here, it's three build errors."
-7. Uncomment the FridayAfternoon arms in Policy.cs, the "friday" line in Stages.cs, and GoHomeException.
+7. Uncomment the FridayAfternoon arms in Policy.cs (lines 14, 23, 32) and GoHomeException (line 53), plus the "friday" line in Stages.cs (line 24).
    Read the comments out loud: "maximum redundancy, maximum anxiety."
 8. dotnet build: green.
 9. Clear the terminal. pulumi preview --stack friday. Read it: "It's Friday afternoon. The deploy can wait. Close the laptop." Then, slowly: "Which is a joke. Probably."
@@ -192,7 +191,7 @@ Don't mention FridayRule.cs until step 7.
 
 0. Close the sidebar (Ctrl+B) so FridayRule.cs isn't on screen.
 1. AGENTS.md. Read the last two lines off the screen: "Do NOT deploy on Friday afternoons." "Bold is a suggestion."
-2. Stages.cs: uncomment the Preview record and ", Preview". dotnet build: 3 errors. "This time I'm not fixing them."
+2. Stages.cs: uncomment the Preview record (line 8) and ", Preview" (line 15). dotnet build: 3 errors. "This time I'm not fixing them."
 3. Start the agent, paste prompts/preview-environments.md. START A 90-SECOND TIMER.
    "I added a Preview environment and the build is broken. Fix it." Plus how preview stacks are named. "The compiler wrote the rest of the to-do list."
 4. Narrate: "Watch where it goes. Not a search. Straight to the errors." Cut it off at 90 seconds.
@@ -210,7 +209,7 @@ Land it, slowly: "Written by a robot. Reviewed by a compiler. Deployed by a huma
 Fallback (agent slow, wrong, or offline):
   git checkout -- . ; git apply --ignore-whitespace fallback/preview-environment.patch
 Then steps 5 to 8. If step 7 doesn't throw: "Huh. The rule says Friday afternoon, Pacific. Somebody check my clock." Say yes, skip step 8, open the URL, read the banner.
-Hard stop at 23:30.
+Hard stop at 23:30. If pulumi up is still going, go to slide 15 and come back to the URL at the end.
 
 ## Slide 15: Take it home
 

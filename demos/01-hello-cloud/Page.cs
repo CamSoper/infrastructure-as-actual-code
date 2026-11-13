@@ -6,10 +6,9 @@ static class Page
 {
     public static string Render(IEnumerable<string> crew)
     {
-        // Everyone is GO. YAML gets polled too, because we're fair.
+        // Everyone is GO.
         var poll = crew
-            .Select(member => (member, status: "GO"))
-            .Append((member: "YAML", status: "NO-GO (unexpected indentation, line 7)"));
+            .Select(member => (member, status: "GO"));
 
         // HtmlEncode, because names suggested by a live YouTube chat are untrusted input.
         var rows = string.Join("\n", poll.Select(p =>

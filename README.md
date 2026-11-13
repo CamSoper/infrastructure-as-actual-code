@@ -87,7 +87,7 @@ Or let `scripts/cleanup.sh` tear down every stack in every demo, protected ones 
 
 ### 1. Hello, cloud
 
-A resource group, a storage account with static website hosting, and an `index.html` built in C#. The page is a go/no-go launch poll, written with LINQ and a raw string literal. Everyone is GO except YAML.
+A resource group, a storage account with static website hosting, and an `index.html` built in C#. The page is a go/no-go launch poll, written with LINQ and a raw string literal.
 
 ### 2. The compiler is your policy engine
 
