@@ -149,14 +149,14 @@ Each case is its own type. Dev and Staging are records with nothing inside: they
 ## Slide 11: Demo: The compiler is your policy engine
 
 DEMO 2: THE COMPILER IS YOUR POLICY ENGINE (11:00 to 18:00)
-Folder: demos/02-compiler-as-policy. "dev" is deployed. "friday" is initialized, never deployed.
+Folder: demos/02-compiler-as-policy. "dev" is deployed. "prod" is created, never deployed.
 
 [Open Program.cs.]
 "Same website as demo 1, split into files. Program.cs is one line: hand Pulumi the Build method."
 
 [F12 into Site.Build. Highlight line 12, StackName.]
 "First thing it asks: which stack am I deploying?"
-"A stack is one deployed copy of this program. Same code, its own config, its own state. dev, prod, and in a minute, friday. Pulumi hands me the stack's name, and that's a string."
+"A stack is one deployed copy of this program. Same code, its own config, its own state. dev, prod, and soon a preview per pull request. Pulumi hands me the stack's name, and that's a string."
 
 [Highlight line 14, Stages.FromStack. Scroll past the resources; don't dwell.]
 "So the first thing we do is turn that string into a Stage: our own type for what kind of environment this stack is. Everything below asks the Stage, never the string." 
@@ -173,7 +173,7 @@ Folder: demos/02-compiler-as-policy. "dev" is deployed. "friday" is initialized,
 [Open Policy.cs. Scroll the three switches.]
 "Our deployment rules. Which SKU, whether it's delete-protected, what the banner says. Each one's a switch over Stage. Notice what's missing: no underscore default arm. A discard arm is you telling the compiler to stop helping."
 
-[Back to Site.cs. Highlight line 27 (Sku = Policy.Redundancy), then line 29 (Protect = Policy.IsProtected).]
+[Back to Site.cs. Highlight line 26 (Sku = Policy.Redundancy), then line 28 (Protect = Policy.IsProtected).]
 "And here's where those rules land. Redundancy is this storage account's SKU. IsProtected is Pulumi's delete protection on it. Banner becomes the web page. Change a rule, and the real infrastructure changes."
 
 [Optional, if you're on time: Policy.cs line 11, change Dev to Standard_GRS. Run pulumi preview --stack dev. Point at the storage account's sku update. Then Ctrl+Z.]
@@ -185,31 +185,38 @@ Folder: demos/02-compiler-as-policy. "dev" is deployed. "friday" is initialized,
 [Browser: the dev site. Point at the yellow banner.]
 "Dev: nothing here is real. That's the Dev arm of the banner switch, live."
 
-⏱️ Checkpoint: start the Friday setup by about 14:30.
+⏱️ Checkpoint: start the Preview step by about 14:00.
 
 [Back to Stages.cs.]
-"Everybody knows the rule: never deploy on Friday afternoon. So let's make Friday afternoon an environment."
-[Uncomment line 7 (the record) and line 13 (", FridayAfternoon").]
+"Every team I know wants a preview environment per pull request. Let's add one."
+[Uncomment line 7 (the Preview record) and line 13 (", Preview" in the union).]
 
 [Terminal: dotnet build. 3 errors, each printed twice. Highlight one.]
-"Policy.cs, line 9: this switch doesn't handle FridayAfternoon. Three errors. One per rule. The compiler just reviewed our entire deployment policy."
+"Policy.cs, line 9: this switch doesn't handle Preview. Three errors. One per rule. The compiler just reviewed our entire deployment policy for the new environment."
 "Remember the cold open? In Terraform, add an environment and nothing tells you. Here, three build errors."
 
-[Policy.cs: uncomment lines 14, 23, 32, and GoHomeException at line 53. Stages.cs: uncomment line 24, the "friday" line.]
-Read the comments: "Maximum redundancy, maximum anxiety. Nobody touches anything."
+[Policy.cs: uncomment lines 14, 23, 32. Stages.cs: uncomment line 24, the "pr-" line.]
+Read the comments: "Throwaway, so cheap. Previews get deleted; don't make that hard."
 "It made me decide. Every rule, for the new environment."
 
 [dotnet build.]
 "Green."
 
-[Clear the terminal. pulumi preview --stack friday. Highlight the message.]
-"It's Friday afternoon. The deploy can wait. Close the laptop."
-[Slowly.] "Which is a joke. Probably."
-(It fails before any resource exists: the banner is worked out first.)
+⏱️ Checkpoint: start the Friday rule by about 16:00.
 
-Land it: "The compiler didn't write the rule. It made me decide. Every single place."
+[Policy.cs: scroll to line 51, CheckDeployWindow. Highlight it, then IsFridayAfternoon at line 60.]
+"Everybody knows the rule: never deploy prod on a Friday afternoon. Usually that's a wiki page, or a bold line in a README. Here it's code. And look: is DayOfWeek Friday, Hour at least 12. More pattern matching."
+
+[Site.cs: uncomment line 15, Policy.CheckDeployWindow(stage).]
+"Turn the rule on."
+
+[Clear the terminal. pulumi preview --stack prod. Highlight the message.]
+"No prod deploys on Friday afternoon. The deploy can wait. Close the laptop."
+[Slowly.] "It's Friday. It's the afternoon. Which is a joke. Probably."
+
+Land it: "The compiler didn't write the rules. It made me decide. And the rules that matter are code, not a wiki page."
 ⏱️ Off this slide by 18:00.
-Fallback: if Pulumi is sad, skip the preview and show the GoHomeException line.
+Fallback: if Pulumi is sad, skip the preview and show CheckDeployWindow. If it doesn't throw, say "The rule says Friday afternoon, Pacific. Somebody check my clock." and move on.
 
 ## Slide 12: A rule for my agents. In bold.
 

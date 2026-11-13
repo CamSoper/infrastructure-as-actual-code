@@ -28,7 +28,7 @@ You only need the [.NET 11 SDK](https://dotnet.microsoft.com/download).
 cd demos/02-compiler-as-policy
 dotnet build
 
-# Now uncomment the FridayAfternoon lines in Stages.cs (just the record and the union member),
+# Now uncomment the Preview lines in Stages.cs (just the record and the union member),
 # build again, and read the errors. Then uncomment the rest and build once more.
 
 # Run the whole Azure stack against a fake cloud (including a fake Friday)
@@ -107,7 +107,7 @@ The deployment rules (redundancy, delete protection, the site banner) are `switc
 <WarningsAsErrors>$(WarningsAsErrors);CS8509</WarningsAsErrors>
 ```
 
-In the talk, we add a `FridayAfternoon` environment and let the compiler find every rule that has to deal with it. The lines are already in the files, commented out, so you can do it too.
+In the talk, we add a `Preview` environment (one per pull request) and let the compiler find every rule that has to deal with it. Then we turn on a real rule: no prod deploys on Friday afternoon, Pacific time. The lines are already in the files, commented out, so you can do it too.
 
 ### 3. Agent vs. compiler (bonus: cut from the live talk)
 

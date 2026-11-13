@@ -6,7 +6,7 @@ Check in with the host 15 minutes early. Be back 5 minutes before start.
 
 Target: about 21 minutes of content, then Q&A. Hard stop on content at 25:00. Start the timer on slide 2; slide 1 is the host intro.
 
-**Checkpoints:** 0:45 lock slide, 1:05 versioning slide, 1:45 bio, 3:45 demo 1, 8:30 `pulumi up` in demo 1, 11:00 demo 2, 14:30 the Friday setup, 18:00 hades story, 21:00 Q&A.
+**Checkpoints:** 0:45 lock slide, 1:05 versioning slide, 1:45 bio, 3:45 demo 1, 8:30 `pulumi up` in demo 1, 11:00 demo 2, 14:00 the Preview step, 16:00 the Friday rule, 18:00 hades story, 21:00 Q&A.
 
 | Time | Slide(s) | What happens |
 |---|---|---|
@@ -26,9 +26,9 @@ If you're running long, cut in this order:
 
 1. Demo 1, steps 7 to 9 (add a crew member and redeploy). Show the live site and move on.
 2. Slide 12 (the hades story). Go straight to slide 13.
-3. Demo 2, step 12 (`pulumi preview --stack friday`). Point at `GoHomeException` instead.
+3. Demo 2, step 13 (`pulumi preview --stack prod`). Point at `CheckDeployWindow` instead.
 
-**Never cut demo 2's FridayAfternoon build errors.** They're the payoff.
+**Never cut demo 2's Preview build errors.** They're the payoff.
 
 ---
 
@@ -56,7 +56,7 @@ If you're running long, cut in this order:
 
 ## Demo 2: The compiler is your policy engine (11:00 to 18:00)
 
-**Folder:** `demos/02-compiler-as-policy` **Stacks:** `dev` deployed; `friday` initialized, never deployed
+**Folder:** `demos/02-compiler-as-policy` **Stacks:** `dev` deployed; `prod` created, never deployed
 
 Everything you need to type is already in the files, commented out. Use **Ctrl+K Ctrl+U** (Cmd+K Cmd+U on a Mac) to uncomment.
 
@@ -68,7 +68,7 @@ Everything you need to type is already in the files, commented out. Use **Ctrl+K
 - **`Policy.cs`:** three switches, three rules. `Redundancy` picks the SKU, `IsProtected` sets delete protection, and `Banner` is what the site says. No `_ =>` anywhere, so the compiler checks that each one covers every `Stage`.
 - **`.csproj`:** `WarningsAsErrors` with CS8509 ("switch doesn't handle every case") turns a warning into a failed build. That's the policy engine.
 - **The 3 errors:** one per switch, at `Policy.cs` lines 9, 18, and 27.
-- **The `friday` preview:** `Site.cs` works out the banner before creating anything, so `GoHomeException` stops the deploy before any resource exists.
+- **The Friday rule:** `Policy.CheckDeployWindow` (line 51) throws `GoHomeException` for `Prod` when it really is Friday afternoon, Pacific time. `IsFridayAfternoon` (line 60) is a property pattern. Turning it on is one line in `Site.cs` (line 15). `pulumi preview --stack prod` runs the program, so it throws before anything is created.
 
 | # | Do | Say |
 |---|---|---|
@@ -76,18 +76,19 @@ Everything you need to type is already in the files, commented out. Use **Ctrl+K
 | 2 | F12 into `Site.Build`. Highlight line 12 (`StackName`), then line 14 (`Stages.FromStack`). Scroll past the resources; don't dwell. F12 into `FromStack`. | "Which stack am I deploying? A stack is one deployed copy of this program: same code, its own config, its own state. dev, prod, and soon friday. Pulumi hands me its name as a string, so first we turn it into a `Stage`: our own type for what kind of environment this stack is. Everything below asks the Stage, never the string." |
 | 3 | `Stages.cs`: the records, the union, `FromStack`. | "Every environment is a type. And look: you can't make a `Prod` without naming who gets paged." |
 | 4 | `Policy.cs`: three switches. | "Our deployment rules. Redundancy, delete protection, the banner. And notice what's missing: no `_ =>`. A discard arm is you telling the compiler to stop helping." |
-| 5 | Back to `Site.cs`. Highlight line 27 (`Sku = Policy.Redundancy(stage)`), then line 29 (`Protect = Policy.IsProtected(stage)`). *Optional, if on time:* in `Policy.cs` line 11 change `Dev` to `Standard_GRS`, run `pulumi preview --stack dev`, point at the storage account's `sku` update, then Ctrl+Z. | "Here's where those rules land. Redundancy is this storage account's SKU. IsProtected is Pulumi's delete protection. Banner becomes the page. Change a rule, and the real infrastructure changes." |
+| 5 | Back to `Site.cs`. Highlight line 26 (`Sku = Policy.Redundancy(stage)`), then line 28 (`Protect = Policy.IsProtected(stage)`). *Optional, if on time:* in `Policy.cs` line 11 change `Dev` to `Standard_GRS`, run `pulumi preview --stack dev`, point at the storage account's `sku` update, then Ctrl+Z. | "Here's where those rules land. Redundancy is this storage account's SKU. IsProtected is Pulumi's delete protection. Banner becomes the page. Change a rule, and the real infrastructure changes." |
 | 6 | `CompilerAsPolicy.csproj`: the `WarningsAsErrors` line. | "CS8509 is the 'your switch missed a case' warning. This one line makes it an error. That's the difference between a policy and a suggestion." |
 | 7 | Browser tab: the `dev` site's yellow banner. | Read it: "Dev: nothing here is real." |
-| 8 | Say the setup: "Everybody knows the rule: never deploy on Friday afternoon. So let's make Friday afternoon an environment." In `Stages.cs`, uncomment the `FridayAfternoon` record (line 7) and the `, FridayAfternoon` line in the union (line 13). | |
-| 9 | `dotnet build` | You'll see 6 error lines (each is printed twice); point at the "3 Error(s)" summary. Read one error aloud: "Policy.cs line 9: the switch doesn't handle FridayAfternoon." Then: "Three errors. One per rule. The compiler just did a code review of our entire deployment policy." Then the callback: "Remember the cold open? In Terraform this was a ternary on a string and a count of one-or-zero. Add an environment and nothing tells you. Here, it's three build errors." |
-| 10 | In `Policy.cs`, uncomment the three `FridayAfternoon =>` arms (lines 14, 23, 32) and `GoHomeException` at the bottom (line 53). In `Stages.cs`, uncomment the `"friday"` line (line 24). Read the comments out loud. | "Maximum redundancy, maximum anxiety." |
+| 8 | In `Stages.cs`, uncomment the `Preview` record (line 7) and `, Preview` in the union (line 13). | "Every team I know wants a preview environment per pull request. Let's add one." |
+| 9 | `dotnet build` | You'll see 6 error lines (each is printed twice); point at the "3 Error(s)" summary. Read one aloud: "Policy.cs line 9: the switch doesn't handle Preview." Then: "Three errors. One per rule. The compiler just reviewed our entire deployment policy." Callback: "In Terraform, add an environment and nothing tells you. Here, three build errors." |
+| 10 | In `Policy.cs`, uncomment the three `Preview` arms (lines 14, 23, 32). In `Stages.cs`, uncomment the `pr-` line (line 24). Read the comments. | "Throwaway, so cheap. Previews get deleted; don't make that hard." |
 | 11 | `dotnet build` | "Green." |
-| 12 | Clear the terminal (Ctrl+L). `pulumi preview --stack friday` | Scroll to the message and read it: "It's Friday afternoon. The deploy can wait. Close the laptop." Then, slowly: "Which is a joke. Probably." |
+| 12 | `Policy.cs`: scroll to `CheckDeployWindow` (line 51), then `IsFridayAfternoon` (line 60). | "Everybody knows the rule: never deploy prod on a Friday afternoon. Usually that's a wiki page. Here it's code. And look: `is { DayOfWeek: Friday, Hour: >= 12 }`. More pattern matching." |
+| 13 | `Site.cs`: uncomment line 15 (`Policy.CheckDeployWindow(stage);`). Clear the terminal (Ctrl+L). `pulumi preview --stack prod` | Read the message: "No prod deploys on Friday afternoon. The deploy can wait. Close the laptop." Then, slowly: "It's Friday. It's the afternoon. Which is a joke. Probably." |
 
-**Land it:** "The compiler didn't write the rule. It made me decide, in every single place. And it'll do the same for whoever touches this next, human or not."
+**Land it:** "The compiler didn't write the rules. It made me decide. And the rules that matter are code, not a wiki page."
 
-**Fallback:** All of this is compile time. If `pulumi preview` is slow or broken, skip step 12 and just point at the `GoHomeException` line.
+**Fallback:** If `pulumi preview` is slow or broken, skip step 13 and just show `CheckDeployWindow`. If it doesn't throw, say "The rule says Friday afternoon, Pacific. Somebody check my clock." and move on.
 
 **After the talk:** `git checkout -- .` in this folder to put the comments back.
 
