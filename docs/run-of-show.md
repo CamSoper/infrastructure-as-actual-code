@@ -12,24 +12,25 @@ Target: 25 minutes of content, 5 minutes of Q&A. Hard stop on content at 25:00.
 | 1:45 | 6 | Who's this guy (30 seconds, open source disclaimer) |
 | 2:15 | 7 to 8 | What "actual code" means; Pulumi in one slide |
 | 3:45 | 9 | **Demo 1: Hello, cloud** |
-| 8:30 | 10 | C# 15 unions in one slide |
-| 9:30 | 11 | **Demo 2: The compiler is your policy engine** |
-| 14:30 | 12 to 13 | The hades story; the thesis |
-| 16:30 | 14 | **Demo 3: Agent vs. compiler vs. the calendar** (the finale) |
-| 23:30 | 15 | Take it home: repo, tests, single file |
-| 24:30 | 16 | Thanks, Q&A |
+| 10:00 | 10 | C# 15 unions in one slide |
+| 11:00 | 11 | **Demo 2: The compiler is your policy engine** |
+| 18:00 | 12 to 13 | The hades story; the thesis |
+| 20:00 | 14 | Take it home: repo, tests, single file |
+| 21:00 | 15 | Thanks, Q&A |
+
+Demo 3 (agent vs. compiler) was cut from the live talk on 2026-11-13. Its code stays in the repo as a take-home.
 
 If you're running long, cut in this order:
 
 1. Demo 1, steps 7 to 9 (add a crew member and redeploy). Show the live site and move on.
 2. Slide 12 (the hades story). Go straight to slide 13.
-3. Demo 2, step 12 (`pulumi preview --stack friday`). Point at `GoHomeException` instead. Demo 3 delivers that joke for real anyway.
+3. Demo 2, step 12 (`pulumi preview --stack friday`). Point at `GoHomeException` instead.
 
-**Never cut demo 3, steps 7 and 8.** They're the payoff.
+**Never cut demo 2's FridayAfternoon build errors.** They're the payoff.
 
 ---
 
-## Demo 1: Hello, cloud (3:45 to 8:30)
+## Demo 1: Hello, cloud (3:45 to 10:00)
 
 **Folder:** `demos/01-hello-cloud` **Stack:** `dev`, already deployed
 
@@ -51,7 +52,7 @@ If you're running long, cut in this order:
 
 ---
 
-## Demo 2: The compiler is your policy engine (9:30 to 14:30)
+## Demo 2: The compiler is your policy engine (11:00 to 18:00)
 
 **Folder:** `demos/02-compiler-as-policy` **Stacks:** `dev` deployed; `friday` initialized, never deployed
 
@@ -90,44 +91,9 @@ Everything you need to type is already in the files, commented out. Use **Ctrl+K
 
 ---
 
-## Demo 3: Agent vs. compiler vs. the calendar (16:30 to 23:30)
-
-**Folder:** `demos/03-agent-vs-compiler` (demo 2's end state) **Stack:** `pr-1013`, pre-deployed by `prep.sh`
-
-**Don't mention `FridayRule.cs`.** Close the VS Code sidebar (Ctrl+B / Cmd+B) before step 1 so it isn't sitting in the file list. Step 7 is the surprise.
-
-| # | Do | Say |
-|---|---|---|
-| 1 | Open `AGENTS.md`. Read the last two lines off the screen. | "Do NOT deploy on Friday afternoons." Then the next line: "Bold is a suggestion." |
-| 2 | In `Stages.cs`, uncomment the `Preview` record (line 8) and the `, Preview` line (line 15). `dotnet build`. | "Per-pull-request preview environments. I added the type. And now the build is broken: three errors. Same as last time. Except this time I'm not fixing them." |
-| 3 | Start your agent in this folder. Paste `prompts/preview-environments.md`. **Start a 90-second timer.** | "Here's the prompt. 'I added a Preview environment and the build is broken. Fix it.' Plus one line on how preview stacks are named. The compiler wrote the rest of the to-do list." |
-| 4 | Narrate while it works. If it hits 90 seconds, cut it off and use the fallback. | "Watch where it goes. Not a search. Straight to the errors." If the agent mentions `FridayRule` or Friday, lean in: "Even the robot's warning me." |
-| 5 | `git diff` | Check out loud: "Every switch handled? No sneaky `_ =>`? Preview is cheap, unprotected, and the banner says which PR? And `FromStack` turns `pr-1013` into a Preview?" **If that last one is missing, use the fallback.** Without it, step 7 fails with "isn't an environment we know how to build" instead of the punchline. Read the banner line: "Preview of pull request number 1013." |
-| 6 | `dotnet build` yourself. | "Trust, but compile." |
-| 7 | Clear the terminal. `pulumi up --stack pr-1013` | It fails with `GoHomeException`. Select-highlight the `GoHomeException:` line so it doesn't read as a crash, and let it sit. Then: "...Told you. This Friday." Read the end of the message: "Or sign for it." Open `FridayRule.cs` for five seconds: "The bold rule was a suggestion. This one's code." |
-| 8 | `pulumi up --stack pr-1013 --config blame=Cam`, select **yes**, open the URL. | "Fine. I'll sign for it." On the page, read the footer: "Shipped on a Friday afternoon. Blame: Cam." (No footer? Ctrl+F5, the browser cached the prep version.) |
-
-**Land it (slowly):** "Written by a robot. Reviewed by a compiler. Deployed by a human, who had to sign for it. On a Friday."
-
-**Fallback:** If the agent is slow (90 seconds), wrong, or offline, cancel it and run:
-
-```
-git checkout -- . ; git apply --ignore-whitespace fallback/preview-environment.patch
-```
-
-That resets the uncomment from step 2 and applies the reference solution (swap in your agent's rehearsal output if you like it better). Say "here's what it did in rehearsal" and carry on from step 5.
-
-**If `pulumi up` doesn't throw in step 7** (clock or time zone surprise): say "Huh. The rule says Friday afternoon, Pacific. Somebody check my clock." Select **yes** at that prompt, skip step 8, and open the URL. The footer only appears on a Friday afternoon, so read the banner instead.
-
-**Hard stop at 23:30.** If `pulumi up` is still going, move to slide 15 and come back to the URL at the end.
-
-**After the talk:** `git checkout -- .` and delete any new files. `cleanup.sh` handles the stack.
-
----
-
 ## Prep (Thursday, and again Friday morning)
 
-**WSL setup (once).** Everything runs inside WSL: the .NET 11 SDK, the Pulumi CLI, the Azure CLI, and your agent all need installing there, not just on Windows. Clone the repo into the Linux filesystem (`~/src/...`), not `/mnt/c/...`, which is slow and invites CRLF trouble. Open it with `code .` from WSL so VS Code uses the WSL remote, and its terminal is bash. If `az login` in WSL can't open a browser, use `az login --use-device-code`.
+**WSL setup (once).** Everything runs inside WSL: the .NET 11 SDK, the Pulumi CLI, the Azure CLI all need installing there, not just on Windows. Clone the repo into the Linux filesystem (`~/src/...`), not `/mnt/c/...`, which is slow and invites CRLF trouble. Open it with `code .` from WSL so VS Code uses the WSL remote, and its terminal is bash. If `az login` in WSL can't open a browser, use `az login --use-device-code`.
 
 Using a local Pulumi backend (`pulumi login --local`)? Set `PULUMI_CONFIG_PASSPHRASE` in the shell first, or every command stops to ask for it. On stream, that's a password prompt on screen.
 
@@ -141,25 +107,21 @@ Run `./scripts/prep.sh` (bash, in WSL). It:
 
 Then by hand:
 
-- [ ] **Thursday: one full dry run against real Azure.** All three demos, start to finish, with a timer. Nothing here has been deployed for real yet.
-- [ ] Rehearse demo 3 with your agent at least twice. If its output differs from `fallback/preview-environment.patch` in an interesting way, keep the better one.
-- [ ] Agent permissions: allow `dotnet build` without asking, so you don't approve prompts on stream. **Deny** `pulumi` outright. An agent that runs `pulumi preview` on Friday afternoon spoils step 7, and one that sets `blame` to get past it kills the joke for good.
+- [ ] **Thursday: one full dry run against real Azure.** Both demos, start to finish, with a timer. Nothing here has been deployed for real yet.
 - [ ] Rehearse the Friday payoff on Thursday: it won't fire. To see it, temporarily point `FridayRule.Clock` at a Friday, or just trust the tests (`Friday_afternoon_blocks_every_stack`).
 - [ ] Record a fallback video of each demo (StreamYard can share a second tab).
-- [ ] Push the repo public, and check the QR code on slide 15 opens it.
+- [ ] Push the repo public, and check the QR code on slide 14 opens it.
 
 ## Day of
 
 - [ ] VS Code: zoom to 150% or more (Ctrl+= or Cmd+=), terminal font 18 or more, a high-contrast theme, minimap off. Editor font Cascadia Mono, or turn ligatures off, so `=>` doesn't render as an arrow glyph.
 - [ ] Close Slack, Teams, Outlook, and anything that pops toasts. Focus assist on.
 - [ ] Browser tabs open: demo 1 site, demo 2 dev site, the repo.
-- [ ] Demo 3 window: sidebar closed (Ctrl+B), so `FridayRule.cs` isn't on screen.
 - [ ] Terminal history cleared. One terminal per demo folder, already `cd`'d. `PULUMI_CONFIG_PASSPHRASE` set in each, if you need it.
 - [ ] `git status` clean in every demo folder.
 - [ ] `git pull`, then reload the VS Code window (Ctrl+Shift+P, "Developer: Reload Window") so IntelliSense uses the .NET 11 SDK.
 - [ ] Every `pulumi preview`/`up` starts with ~10 lines of `dotnet build` output. Scroll past it to the diff.
 - [ ] `az account show` returns the subscription you expect. No secrets on screen.
-- [ ] Agent signed in and warm (run one throwaway prompt).
 - [ ] Fallback videos open in a tab.
 
 ## Cleanup (after the talk)

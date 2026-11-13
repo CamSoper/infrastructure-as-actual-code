@@ -53,7 +53,7 @@ WHO'S THIS GUY (1:45 to 2:15, keep it to 30 seconds)
 
 I'm Cam. I spent 13 years at Microsoft, most of it on .NET and Azure, and some of you might remember me from On .NET Live. These days I'm in systems engineering at Pulumi. I built and run our automated docs QA system, and now I'm working on Pulumi's agentic SDLC.
 
-Which means I put AI agents into production for a living. Hold that thought; it matters in demo 3.
+Which means I put AI agents into production for a living. Hold that thought; it comes back near the end.
 
 Quick disclaimer, since I work there: everything you'll see today is open source. No sign-up, no paid features. The demos are the pitch; I'm not going to do a sales slide.
 
@@ -101,7 +101,7 @@ Enough slides. Let's deploy something.
 
 ## Slide 9: Demo: Hello, cloud
 
-DEMO 1: HELLO, CLOUD (3:45 to 8:30). Full cue card in docs/run-of-show.md.
+DEMO 1: HELLO, CLOUD (3:45 to 10:00). Full cue card in docs/run-of-show.md.
 
 Folder: demos/01-hello-cloud. Stack "dev" is ALREADY deployed.
 
@@ -121,7 +121,7 @@ Fallback: browser tab of the already-deployed site + git diff of the change.
 
 ## Slide 10: C# 15: union types
 
-UNIONS IN ONE SLIDE (8:30 to 9:30). Three clicks, one per bullet.
+UNIONS IN ONE SLIDE (10:00 to 11:00). Three clicks, one per bullet.
 
 "You've probably seen demos of this already: Mads and Dustin opened Tuesday with it in 'What's new in C#', and Bill Wagner's been blogging about unions since April."
 "Here's why it's a great feature for infrastructure: your environments are a closed set. Dev, staging, prod. And every infra rule is a per-environment decision. A union makes the set closed, a switch makes the rule, and the compiler checks every rule covers every environment."
@@ -138,7 +138,7 @@ Each case is its own type. Dev and Staging are records with nothing inside: they
 
 ## Slide 11: Demo: The compiler is your policy engine
 
-DEMO 2: THE COMPILER IS YOUR POLICY ENGINE (9:30 to 14:30)
+DEMO 2: THE COMPILER IS YOUR POLICY ENGINE (11:00 to 18:00)
 Folder: demos/02-compiler-as-policy. "dev" is deployed. "friday" is initialized, never deployed.
 
 [Open Program.cs.]
@@ -200,7 +200,7 @@ Fallback: if Pulumi is sad, skip the preview and show the GoHomeException line.
 
 ## Slide 12: A rule for my agents. In bold.
 
-THE REAL STORY (14:30 to 16:00). Cut this slide first if you're long. Three clicks: source, quote, confession.
+THE REAL STORY (18:00 to 19:30). Cut this slide first if you're long. Three clicks: source, quote, confession.
 
 [Click 1: "From my own CLAUDE.md."] This is a real line from the instructions file in my own infrastructure repo, the one that runs my domains and home-lab services.
 
@@ -214,58 +214,29 @@ The union version: every service gets exactly one auth posture. hades is SelfOAu
 
 ## Slide 13: A rule in an agent's instructions is a suggestion. A rule in the type system is enforced.
 
-THE THESIS (16:00 to 16:30). Pause on this one. Let it sit.
+THE THESIS (19:30 to 20:00). Pause on this one. Let it sit.
 
 A rule written in an agent's instructions is a suggestion. A rule written in the type system is enforced, no matter who, or what, wrote the change.
 
 I put agents into production for a living. That's exactly why I trust them as far as the compiler does, and no further.
 
-So let's test that. Let's hand the keyboard to a robot.
+[Beat.] That's the talk. Let me show you where to get all of it.
 
-## Slide 14: Demo: Agent vs. compiler
+## Slide 14: Take it home
 
-DEMO 3: AGENT VS. COMPILER (16:30 to 23:30). The finale. Full cue card in docs/run-of-show.md.
-
-Folder: demos/03-agent-vs-compiler (demo 2's end state). Stack "pr-1013" pre-deployed by prep.sh.
-Don't mention FridayRule.cs until step 7.
-
-0. Close the sidebar (Ctrl+B) so FridayRule.cs isn't on screen.
-1. AGENTS.md. Read the last two lines off the screen: "Do NOT deploy on Friday afternoons." "Bold is a suggestion."
-2. Stages.cs: uncomment the Preview record (line 8) and ", Preview" (line 15). dotnet build: 3 errors. "This time I'm not fixing them."
-3. Start the agent, paste prompts/preview-environments.md. START A 90-SECOND TIMER.
-   "I added a Preview environment and the build is broken. Fix it." Plus how preview stacks are named. "The compiler wrote the rest of the to-do list."
-4. Narrate: "Watch where it goes. Not a search. Straight to the errors." Cut it off at 90 seconds.
-   If it mentions FridayRule or Friday: "Even the robot's warning me."
-5. git diff. Every switch handled? No "_ =>"? Cheap, unprotected? Read the banner: "Preview of pull request number 1013."
-   FromStack maps "pr-1013" to Preview? If NOT, use the fallback, or step 7 fails with the wrong error.
-6. dotnet build, yourself. "Trust, but compile."
-7. Clear the terminal. pulumi up --stack pr-1013. It throws GoHomeException, because it's actually Friday afternoon.
-   Highlight the GoHomeException line so it doesn't read as a crash. Let it sit. "...Told you. This Friday."
-   Read the end: "Or sign for it." Flash FridayRule.cs: "The bold rule was a suggestion. This one's code."
-8. pulumi up --stack pr-1013 --config blame=Cam. Yes. Open the URL (Ctrl+F5 if no footer). Read the footer: "Shipped on a Friday afternoon. Blame: Cam."
-
-Land it, slowly: "Written by a robot. Reviewed by a compiler. Deployed by a human, who had to sign for it. On a Friday."
-
-Fallback (agent slow, wrong, or offline):
-  git checkout -- . ; git apply --ignore-whitespace fallback/preview-environment.patch
-Then steps 5 to 8. If step 7 doesn't throw: "Huh. The rule says Friday afternoon, Pacific. Somebody check my clock." Say yes, skip step 8, open the URL, read the banner.
-Hard stop at 23:30. If pulumi up is still going, go to slide 15 and come back to the URL at the end.
-
-## Slide 15: Take it home
-
-TAKE IT HOME (23:30 to 24:30)
+TAKE IT HOME (20:00 to 21:00)
 
 Everything's in the repo: https://github.com/CamSoper/infrastructure-as-actual-code
 
-All three demos, the slides, and these speaker notes. There's a test project that runs this whole Azure stack against a fake cloud, so you can try the union stuff with no Azure account at all.
+Both demos, the slides, and these speaker notes. Plus a third demo I cut for time: an AI agent adds an environment, and the compiler reviews its work. Try it with your own agent. There's a test project that runs this whole Azure stack against a fake cloud, so you can try the union stuff with no Azure account at all.
 
 And as a bonus: the whole thing in a single C# file. dotnet run deploy.cs. One gotcha that'll bite you: file-based apps set PublishAot=true by default, which turns off reflection-based JSON, and Pulumi needs it. Add "#:property PublishAot=false" at the top. Ask me how I know.
 
 [The QR code and link are on screen. Leave this slide up for a few seconds.]
 
-## Slide 16: Thank you
+## Slide 15: Thank you
 
-Q&A (24:30 to 30:00)
+Q&A (21:00 to 30:00)
 
 Seed questions, in case Q&A is quiet:
 

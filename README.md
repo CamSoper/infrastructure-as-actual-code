@@ -109,7 +109,7 @@ The deployment rules (redundancy, delete protection, the site banner) are `switc
 
 In the talk, we add a `FridayAfternoon` environment and let the compiler find every rule that has to deal with it. The lines are already in the files, commented out, so you can do it too.
 
-### 3. Agent vs. compiler
+### 3. Agent vs. compiler (bonus: cut from the live talk)
 
 Demo 2's end state, plus an [`AGENTS.md`](demos/03-agent-vs-compiler/AGENTS.md) that says, in bold, "Do NOT deploy on Friday afternoons."
 
