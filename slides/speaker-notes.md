@@ -10,6 +10,8 @@ Thanks! Before I say who I am, I want to show you something.
 
 ## Slide 2: Infrastructure as code, they said
 
+⏱️ RESET THE TIMER NOW ⏱️
+
 COLD OPEN (0:00 to 1:30). Three slides, one new "if" per slide.
 
 [Before anything else: the definition.]
