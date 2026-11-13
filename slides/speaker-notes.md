@@ -163,6 +163,12 @@ Folder: demos/02-compiler-as-policy. "dev" is deployed. "friday" is initialized,
 [Open Policy.cs. Scroll the three switches.]
 "Our deployment rules. Which SKU, whether it's delete-protected, what the banner says. Each one's a switch over Stage. Notice what's missing: no underscore default arm. A discard arm is you telling the compiler to stop helping."
 
+[Back to Site.cs. Highlight line 27 (Sku = Policy.Redundancy), then line 29 (Protect = Policy.IsProtected).]
+"And here's where those rules land. Redundancy is this storage account's SKU. IsProtected is Pulumi's delete protection on it. Banner becomes the web page. Change a rule, and the real infrastructure changes."
+
+[Optional, if you're on time: Policy.cs line 11, change Dev to Standard_GRS. Run pulumi preview --stack dev. Point at the storage account's sku update. Then Ctrl+Z.]
+"One line in a policy file, and the preview shows a real storage account in Azure changing."
+
 [Open the csproj. Highlight WarningsAsErrors.]
 "CS8509 means a switch missed a case. It's a warning by default. This one line makes it an error. That's the whole policy engine."
 

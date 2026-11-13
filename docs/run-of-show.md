@@ -23,7 +23,7 @@ If you're running long, cut in this order:
 
 1. Demo 1, steps 7 to 9 (add a crew member and redeploy). Show the live site and move on.
 2. Slide 12 (the hades story). Go straight to slide 13.
-3. Demo 2, step 11 (`pulumi preview --stack friday`). Point at `GoHomeException` instead. Demo 3 delivers that joke for real anyway.
+3. Demo 2, step 12 (`pulumi preview --stack friday`). Point at `GoHomeException` instead. Demo 3 delivers that joke for real anyway.
 
 **Never cut demo 3, steps 7 and 8.** They're the payoff.
 
@@ -73,17 +73,18 @@ Everything you need to type is already in the files, commented out. Use **Ctrl+K
 | 2 | F12 into `Site.Build`. Highlight line 12 (`StackName`), then line 14 (`Stages.FromStack`). Scroll past the resources; don't dwell. F12 into `FromStack`. | "Which stack am I deploying? A stack is one deployed copy of this program: same code, its own config, its own state. dev, prod, and soon friday. Pulumi hands me its name as a string, so first we turn it into a `Stage`: our own type for what kind of environment this stack is. Everything below asks the Stage, never the string." |
 | 3 | `Stages.cs`: the records, the union, `FromStack`. | "Every environment is a type. And look: you can't make a `Prod` without naming who gets paged." |
 | 4 | `Policy.cs`: three switches. | "Our deployment rules. Redundancy, delete protection, the banner. And notice what's missing: no `_ =>`. A discard arm is you telling the compiler to stop helping." |
-| 5 | `CompilerAsPolicy.csproj`: the `WarningsAsErrors` line. | "CS8509 is the 'your switch missed a case' warning. This one line makes it an error. That's the difference between a policy and a suggestion." |
-| 6 | Browser tab: the `dev` site's yellow banner. | Read it: "Dev: nothing here is real." |
-| 7 | Say the setup: "Everybody knows the rule: never deploy on Friday afternoon. So let's make Friday afternoon an environment." In `Stages.cs`, uncomment the `FridayAfternoon` record (line 7) and the `, FridayAfternoon` line in the union (line 13). | |
-| 8 | `dotnet build` | You'll see 6 error lines (each is printed twice); point at the "3 Error(s)" summary. Read one error aloud: "Policy.cs line 9: the switch doesn't handle FridayAfternoon." Then: "Three errors. One per rule. The compiler just did a code review of our entire deployment policy." Then the callback: "Remember the cold open? In Terraform this was a ternary on a string and a count of one-or-zero. Add an environment and nothing tells you. Here, it's three build errors." |
-| 9 | In `Policy.cs`, uncomment the three `FridayAfternoon =>` arms (lines 14, 23, 32) and `GoHomeException` at the bottom (line 53). In `Stages.cs`, uncomment the `"friday"` line (line 24). Read the comments out loud. | "Maximum redundancy, maximum anxiety." |
-| 10 | `dotnet build` | "Green." |
-| 11 | Clear the terminal (Ctrl+L). `pulumi preview --stack friday` | Scroll to the message and read it: "It's Friday afternoon. The deploy can wait. Close the laptop." Then, slowly: "Which is a joke. Probably." |
+| 5 | Back to `Site.cs`. Highlight line 27 (`Sku = Policy.Redundancy(stage)`), then line 29 (`Protect = Policy.IsProtected(stage)`). *Optional, if on time:* in `Policy.cs` line 11 change `Dev` to `Standard_GRS`, run `pulumi preview --stack dev`, point at the storage account's `sku` update, then Ctrl+Z. | "Here's where those rules land. Redundancy is this storage account's SKU. IsProtected is Pulumi's delete protection. Banner becomes the page. Change a rule, and the real infrastructure changes." |
+| 6 | `CompilerAsPolicy.csproj`: the `WarningsAsErrors` line. | "CS8509 is the 'your switch missed a case' warning. This one line makes it an error. That's the difference between a policy and a suggestion." |
+| 7 | Browser tab: the `dev` site's yellow banner. | Read it: "Dev: nothing here is real." |
+| 8 | Say the setup: "Everybody knows the rule: never deploy on Friday afternoon. So let's make Friday afternoon an environment." In `Stages.cs`, uncomment the `FridayAfternoon` record (line 7) and the `, FridayAfternoon` line in the union (line 13). | |
+| 9 | `dotnet build` | You'll see 6 error lines (each is printed twice); point at the "3 Error(s)" summary. Read one error aloud: "Policy.cs line 9: the switch doesn't handle FridayAfternoon." Then: "Three errors. One per rule. The compiler just did a code review of our entire deployment policy." Then the callback: "Remember the cold open? In Terraform this was a ternary on a string and a count of one-or-zero. Add an environment and nothing tells you. Here, it's three build errors." |
+| 10 | In `Policy.cs`, uncomment the three `FridayAfternoon =>` arms (lines 14, 23, 32) and `GoHomeException` at the bottom (line 53). In `Stages.cs`, uncomment the `"friday"` line (line 24). Read the comments out loud. | "Maximum redundancy, maximum anxiety." |
+| 11 | `dotnet build` | "Green." |
+| 12 | Clear the terminal (Ctrl+L). `pulumi preview --stack friday` | Scroll to the message and read it: "It's Friday afternoon. The deploy can wait. Close the laptop." Then, slowly: "Which is a joke. Probably." |
 
 **Land it:** "The compiler didn't write the rule. It made me decide, in every single place. And it'll do the same for whoever touches this next, human or not."
 
-**Fallback:** All of this is compile time. If `pulumi preview` is slow or broken, skip step 11 and just point at the `GoHomeException` line.
+**Fallback:** All of this is compile time. If `pulumi preview` is slow or broken, skip step 12 and just point at the `GoHomeException` line.
 
 **After the talk:** `git checkout -- .` in this folder to put the comments back.
 
